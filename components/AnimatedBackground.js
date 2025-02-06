@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { linearDepth } from "three/tsl";
 
 export default function AnimatedBackground() {
   const mountRef = useRef(null);
@@ -30,7 +29,7 @@ export default function AnimatedBackground() {
     // 4. Animation Loop
     const animate = () => {
       requestAnimationFrame(animate);
-      mesh.rotation.x += 0.0005;
+      mesh.rotation.x += 0.00008;
       mesh.rotation.y += 0.0005;
       renderer.render(scene, camera);
     };
@@ -42,11 +41,12 @@ export default function AnimatedBackground() {
       geometry.dispose();
       material.dispose();
       scene.remove(mesh);
-      mountRef.current.removeChild(renderer.domElement);
+      if (mountRef.current) {
+        mountRef.current.removeChild(renderer.domElement);
+      }
     };
   }, []);
 
-  // The container for our Three.js scene
   return (
     <div
       ref={mountRef}
@@ -57,7 +57,7 @@ export default function AnimatedBackground() {
         width: "100%",
         height: "100%",
         overflow: "hidden",
-        opacity: window.innerWidth < 768 ? 0.3 : 0.2,
+        opacity: window.innerWidth < 768 ? 0.3 : 0.1,
       }}
     />
   );
