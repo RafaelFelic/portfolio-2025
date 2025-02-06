@@ -1,0 +1,132 @@
+.hero {
+  position: relative;
+  height: 100vh; /* Full viewport height */
+  background: url("/images/background.webp") center center/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Dark overlay for contrast */
+  z-index: 1;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #fff;
+  padding: 0.5rem;
+}
+
+.content h1 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.highlight {
+  background: linear-gradient(to right, #287cf4, #00aaff, #b3e0ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+  font-size: 3.5rem;
+}
+
+.content p {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 200;
+  margin-bottom: 1.5rem;
+}
+
+.cta {
+  font-family: "Inter", sans-serif;
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  margin-top: 0.5rem;
+  background-color: #287cf4;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 30px;
+  border: 1px solid #fff;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.cta:hover {
+  background-color: #114f94;
+  transform: translateY(-3px);
+}
+
+/* Container for the profile picture */
+.profileContainer {
+  position: relative;
+  z-index: 2;
+  width: 250px; /* Default width */
+  height: 250px; /* Default height */
+  animation: fadeIn 1s ease-in-out;
+}
+
+.profilePic {
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+  object-fit: cover;
+  clip-path: polygon(
+    50% 0%,
+    /* Vertex 1: Top center */ 79.39% 9.55%,
+    /* Vertex 2 */ 97.56% 34.55%,
+    /* Vertex 3 */ 97.56% 65.45%,
+    /* Vertex 4 */ 79.39% 90.45%,
+    /* Vertex 5 */ 50% 100%,
+    /* Vertex 6: Bottom center */ 20.61% 90.45%,
+    /* Vertex 7 */ 2.44% 65.45%,
+    /* Vertex 8 */ 2.44% 34.55%,
+    /* Vertex 9 */ 20.61% 9.55% /* Vertex 10 */
+  );
+  display: block;
+}
+
+.footer {
+  font-family: "Poppins", sans-serif;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: #fff;
+  opacity: 0.8;
+  text-align: center;
+  font-size: 0.8rem;
+  z-index: 2;
+  padding: 1rem;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  .profileContainer {
+    width: 200px; /* Mobile width */
+    height: 200px; /* Mobile height */
+  }
+}
