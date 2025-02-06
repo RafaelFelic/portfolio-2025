@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Portfolio() {
   return (
     <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden">
@@ -28,7 +30,7 @@ export default function Portfolio() {
           Discover my projects and skills in <strong>web development</strong>{" "}
           and <strong>UX/UI design</strong>.
         </p>
-        <a
+        <Link
           href="/about"
           className="
             inline-block !py-3 !px-8 !mt-10
@@ -39,7 +41,7 @@ export default function Portfolio() {
           "
         >
           Learn More
-        </a>
+        </Link>
       </div>
     </section>
   );
