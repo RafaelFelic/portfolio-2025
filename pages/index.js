@@ -10,7 +10,7 @@ export default function Portfolio() {
       >
         <img
           className="
-            w-full h-full opacity-80 object-cover block
+            w-full h-full opacity-90 object-cover block
             [clip-path:polygon(50%_0%,79.39%_9.55%,97.56%_34.55%,97.56%_65.45%,79.39%_90.45%,50%_100%,20.61%_90.45%,2.44%_65.45%,2.44%_34.55%,20.61%_9.55%)]
           "
           src="/images/rafael-office.webp"

@@ -1,91 +1,97 @@
 import Head from "next/head";
+import Link from "next/link";
 
 export default function About() {
   return (
-    <div className="container mx-auto flex flex-col items-center justify-center px-6 py-20 min-h-screen select-text text-sm">
+    <div className="min-h-screen  text-gray-300 flex flex-col items-center justify-center font-light">
       <Head>
-        <title>About Me</title>
-        <meta name="description" content="Learn more about me and my work" />
+        <title>About Me - Rafael | Web Developer</title>
+        <meta
+          name="description"
+          content="Discover the digital journey of Rafael, a passionate web developer specializing in front-end and UX/UI design. Learn more about my work and vision."
+        />
       </Head>
 
-      <main className="w-full flex flex-col lg:flex-row gap-16 items-center">
-        {/* Profile Section */}
-        <div className="lg:w-1/3 space-y-8">
-          <div className="relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-gray-600 to-blue-600 rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-1000"></div>
-            <div className="relative h-72 w-72 rounded-2xl bg-gray-800 overflow-hidden">
+      <div className="max-w-5xl w-full px-4">
+        <h1 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-blue-100 via-blue-400 to-blue-600 bg-clip-text text-transparent">
+          About Me
+        </h1>
+
+        {/* Top Section: Photo on the left & two paragraphs on the right */}
+        <div className="flex flex-col md:flex-row items-center gap-8">
+          {/* Profile Photo */}
+          <div className="relative group w-full md:w-1/4">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-600 rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-1000"></div>
+            <div className="relative h-60 w-56 rounded-2xl bg-gray-800 overflow-hidden">
               <img
-                src="/images/rafael-surfing.webp"
-                alt="Profile"
-                className="w-full h-full object-cover"
+                src="/images/rafael-black-shirt.webp"
+                alt="Rafael wearing a surfing shirt"
+                className="w-full h-full object-cover brightness-80"
               />
-              <div className="w-full h-full bg-gray-700 animate-pulse" />
             </div>
+          </div>
+
+          {/* Introductory Text */}
+          <div className="flex flex-col gap-4 w-full md:w-3/4">
+            <p className="text-lg leading-relaxed">
+              <span className="font-bold">
+                Hi, I'm Rafael – a Web Developer and UX/UI Designer.
+              </span>
+              <br />I create immersive digital experiences that connect users
+              with innovative, responsive, and pixel‑perfect interfaces. My work
+              brings together visual appeal and technical expertise for seamless
+              experiences on every device(mobile to desktops).
+            </p>
+            <p className="text-lg">My skill set spans:</p>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <li className="flex items-center text-lg leading-relaxed">
+                <span className="inline-block bg-blue-500 h-2.5 w-2.5 rounded-full mr-3"></span>
+                Responsive front‑end development
+              </li>
+              <li className="flex items-center text-lg leading-relaxed">
+                <span className="inline-block bg-blue-500 h-2.5 w-2.5 rounded-full mr-3"></span>
+                Innovative UX/UI design
+              </li>
+              <li className="flex items-center text-lg leading-relaxed">
+                <span className="inline-block bg-blue-500 h-2.5 w-2.5 rounded-full mr-3"></span>
+                Performance optimization
+              </li>
+              <li className="flex items-center text-lg leading-relaxed">
+                <span className="inline-block bg-blue-500 h-2.5 w-2.5 rounded-full mr-3"></span>
+                Creative problem solving
+              </li>
+            </ul>
           </div>
         </div>
 
-        {/* Content Section */}
-        <div className="lg:w-2/3 space-y-10">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-            About Me
-          </h1>
-
-          <section className="space-y-10">
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-gray-100">
-                Rafael, Web Developer
-              </h2>
-              <p className="text-base leading-loose text-gray-300">
-                I specialize in crafting immersive digital experiences through
-                front-end development and UX/UI design. With a passion for
-                merging aesthetic vision with technical precision, I create web
-                solutions that are both visually stunning and functionally
-                robust.
-              </p>
-            </div>
-
-            <div className="space-y-6">
-              <h3 className="text-xl font-semibold text-gray-100 border-l-4 border-blue-500 pl-4">
-                Expertise
-              </h3>
-              <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <li className="flex items-center space-x-3 p-4 bg-gray-800 rounded-lg hover:bg-gray-700 transition">
-                  <div className="h-2 w-2 bg-blue-500 rounded-full"></div>
-                  <span className="text-gray-300">Front-end Development</span>
-                </li>
-                {/* Repeat for other list items with different blue accents if needed */}
-              </ul>
-            </div>
-
-            <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-gray-100 border-l-4 border-blue-500 pl-4">
-                Professional Journey
-              </h3>
-              <p className="text-base leading-loose text-gray-300">
-                [Engaging story about your career path, key milestones, and
-                professional philosophy. Keep it concise but impactful.]
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-gray-100 border-l-4 border-blue-500 pl-4">
-                Let's Collaborate
-              </h3>
-              <p className="text-base leading-loose text-gray-300">
-                I'm currently available for select projects and consultation
-                work. Reach out via{" "}
-                <a
-                  href="mailto:rafaelfelic@gmail.com"
-                  className="text-blue-400 hover:text-blue-500 transition underline underline-offset-4 inline-block"
-                >
-                  rafaelfelic@gmail.com
-                </a>{" "}
-                to discuss your vision.
-              </p>
-            </div>
-          </section>
+        {/* Bottom Section: Additional details */}
+        <div className="mt-6 space-y-6">
+          <p className="text-lg leading-relaxed">
+            Additionally, I have hands‑on back‑end development experience for a
+            complete, integrated approach to every project.
+          </p>
+          <p className="text-lg leading-relaxed">
+            Fueled by a relentless passion for technology and design, my career
+            is an exciting journey of learning, innovation, and collaboration.
+            Over the years, I've teamed up with diverse groups to overcome
+            complex challenges and push the boundaries of what's possible in web
+            development.
+          </p>
+          <p className="text-lg leading-relaxed">
+            I'm always eager to connect with like‑minded professionals to
+            transform visionary ideas into captivating digital realities.
+            Whether you're looking for a creative partner or expert
+            consultation, feel free to{" "}
+            <Link
+              href="/contact"
+              className="text-blue-400 hover:text-blue-500 underline underline-offset-4 transition"
+            >
+              contact me
+            </Link>
+            .
+          </p>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

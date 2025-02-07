@@ -13,7 +13,7 @@ export default function Layout({ children }) {
       </header>
 
       <main>{children}</main>
-      <footer className="absolute bottom-0 w-full text-center text-white text-sm !p-4 font-light">
+      <footer className="absolute bottom-0 w-full text-center text-gray-300 text-sm p-4 font-light">
         <p>© 2025 Rafael Feliciano. All rights reserved.</p>
       </footer>
     </div>
