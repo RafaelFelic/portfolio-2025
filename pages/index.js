@@ -13,12 +13,12 @@ export default function Portfolio() {
             w-full h-full opacity-80 object-cover block
             [clip-path:polygon(50%_0%,79.39%_9.55%,97.56%_34.55%,97.56%_65.45%,79.39%_90.45%,50%_100%,20.61%_90.45%,2.44%_65.45%,2.44%_34.55%,20.61%_9.55%)]
           "
-          src="/images/rafael.webp"
+          src="/images/rafael-office.webp"
           alt="Rafael's profile picture"
         />
       </div>
 
-      <div className="relative z-20 text-center text-white !mt-8">
+      <div className="relative z-20 text-center text-white !mt-2">
         <h1 className="font-poppins text-5xl !mb-6">
           Welcome to{" "}
           <span className="bg-gradient-to-r from-[#287cf4] via-[#00aaff] to-[#b3e0ff] bg-clip-text text-transparent font-semibold text-6xl">
@@ -33,7 +33,7 @@ export default function Portfolio() {
         <Link
           href="/about"
           className="
-            inline-block !py-3 !px-8 !mt-10
+            inline-block !py-3 !px-8 !mt-6
             bg-[#287cf4] text-white   
             rounded-full border  font-medium
             transition duration-500 ease-out

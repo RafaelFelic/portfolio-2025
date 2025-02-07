@@ -1,48 +1,90 @@
 import Head from "next/head";
-import styles from "../styles/About.module.css";
 
 export default function About() {
   return (
-    <div className={styles.container}>
+    <div className="container mx-auto flex flex-col items-center justify-center px-6 py-20 min-h-screen select-text text-sm">
       <Head>
         <title>About Me</title>
         <meta name="description" content="Learn more about me and my work" />
       </Head>
 
-      <main className={styles.main}>
-        <h1>About Me</h1>
+      <main className="w-full flex flex-col lg:flex-row gap-16 items-center">
+        {/* Profile Section */}
+        <div className="lg:w-1/3 space-y-8">
+          <div className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-gray-600 to-blue-600 rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-1000"></div>
+            <div className="relative h-72 w-72 rounded-2xl bg-gray-800 overflow-hidden">
+              <img
+                src="/images/rafael-surfing.webp"
+                alt="Profile"
+                className="w-full h-full object-cover"
+              />
+              <div className="w-full h-full bg-gray-700 animate-pulse" />
+            </div>
+          </div>
+        </div>
 
-        <section className={styles.content}>
-          <h2>Hello, I'm Rafael</h2>
-          <p>
-            I'm a passionate Web Developer with a strong focus on Front-end
-            development and UX/UI. I specialize in creating engaging,
-            user-friendly web experiences that combine aesthetic design with
-            functional implementation.
-          </p>
+        {/* Content Section */}
+        <div className="lg:w-2/3 space-y-10">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
+            About Me
+          </h1>
 
-          <h3>What I Do</h3>
-          <p>I focus on delivering high-quality solutions in:</p>
-          <ul>
-            <li>Front-end Development</li>
-            <li>Responsive Web Design</li>
-            <li>User Experience (UX) Design</li>
-            <li>User Interface (UI) Development</li>
-          </ul>
+          <section className="space-y-10">
+            <div className="space-y-4">
+              <h2 className="text-2xl font-bold text-gray-100">
+                Rafael, Web Developer
+              </h2>
+              <p className="text-base leading-loose text-gray-300">
+                I specialize in crafting immersive digital experiences through
+                front-end development and UX/UI design. With a passion for
+                merging aesthetic vision with technical precision, I create web
+                solutions that are both visually stunning and functionally
+                robust.
+              </p>
+            </div>
 
-          <h3>My Journey</h3>
-          <p>
-            [Share a brief story about your professional journey, what drives
-            you, and what you're passionate about. Make it personal and
-            engaging.]
-          </p>
+            <div className="space-y-6">
+              <h3 className="text-xl font-semibold text-gray-100 border-l-4 border-blue-500 pl-4">
+                Expertise
+              </h3>
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <li className="flex items-center space-x-3 p-4 bg-gray-800 rounded-lg hover:bg-gray-700 transition">
+                  <div className="h-2 w-2 bg-blue-500 rounded-full"></div>
+                  <span className="text-gray-300">Front-end Development</span>
+                </li>
+                {/* Repeat for other list items with different blue accents if needed */}
+              </ul>
+            </div>
 
-          <h3>Let's Connect</h3>
-          <p>
-            I'm always interested in new projects and opportunities. Feel free
-            to reach out to me at [your preferred contact method].
-          </p>
-        </section>
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold text-gray-100 border-l-4 border-blue-500 pl-4">
+                Professional Journey
+              </h3>
+              <p className="text-base leading-loose text-gray-300">
+                [Engaging story about your career path, key milestones, and
+                professional philosophy. Keep it concise but impactful.]
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold text-gray-100 border-l-4 border-blue-500 pl-4">
+                Let's Collaborate
+              </h3>
+              <p className="text-base leading-loose text-gray-300">
+                I'm currently available for select projects and consultation
+                work. Reach out via{" "}
+                <a
+                  href="mailto:rafaelfelic@gmail.com"
+                  className="text-blue-400 hover:text-blue-500 transition underline underline-offset-4 inline-block"
+                >
+                  rafaelfelic@gmail.com
+                </a>{" "}
+                to discuss your vision.
+              </p>
+            </div>
+          </section>
+        </div>
       </main>
     </div>
   );
