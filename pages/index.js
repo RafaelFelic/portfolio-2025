@@ -21,14 +21,15 @@ export default function Portfolio() {
       <div className="relative z-20 text-center text-white !mt-2">
         <h1 className="font-poppins text-5xl !mb-6">
           Welcome to{" "}
-          <span className="bg-gradient-to-r from-[#287cf4] via-[#00aaff] to-[#b3e0ff] bg-clip-text text-transparent font-semibold text-6xl">
+          <span className="bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 bg-clip-text text-transparent font-semibold text-6xl">
             My Portfolio
           </span>
         </h1>
 
-        <p className="text-xl font-light">
-          Discover my projects and skills in <strong>web development</strong>{" "}
-          and <strong>UX/UI design</strong>.
+        <p className="text-xl font-extralight">
+          Discover my projects and skills in{" "}
+          <span className="font-semibold">web development</span> and{" "}
+          <span className="font-semibold">UX/UI design</span>.
         </p>
         <Link
           href="/about"

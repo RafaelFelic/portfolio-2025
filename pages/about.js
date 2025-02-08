@@ -13,7 +13,7 @@ export default function About() {
       </Head>
 
       <div className="max-w-5xl w-full px-4">
-        <h1 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-blue-100 via-blue-400 to-blue-600 bg-clip-text text-transparent">
+        <h1 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 bg-clip-text text-transparent">
           About Me
         </h1>
 
@@ -35,12 +35,14 @@ export default function About() {
           <div className="flex flex-col gap-4 w-full md:w-3/4">
             <p className="text-lg leading-relaxed">
               <span className="font-bold">
-                Hi, I'm Rafael – a Web Developer and UX/UI Designer.
+                Hi, I'm Rafael – a Web Developer, UX/UI Designer, and AI
+                enthusiast.
               </span>
               <br />I create immersive digital experiences that connect users
               with innovative, responsive, and pixel‑perfect interfaces. My work
-              brings together visual appeal and technical expertise for seamless
-              experiences on every device(mobile to desktops).
+              fuses visual appeal, technical expertise, and forward-thinking AI
+              insights to deliver seamless experiences across every device, from
+              mobile to desktop.
             </p>
             <p className="text-lg">My skill set spans:</p>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -67,8 +69,8 @@ export default function About() {
         {/* Bottom Section: Additional details */}
         <div className="mt-6 space-y-6">
           <p className="text-lg leading-relaxed">
-            Additionally, I have hands‑on back‑end development experience for a
-            complete, integrated approach to every project.
+            Additionally, I bring hands‑on back‑end development experience to
+            every project, ensuring a complete, integrated approach.
           </p>
           <p className="text-lg leading-relaxed">
             Fueled by a relentless passion for technology and design, my career
