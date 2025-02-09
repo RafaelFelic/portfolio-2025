@@ -9,10 +9,31 @@ const Carousel = dynamic(() => import("react-spring-3d-carousel"), {
   ssr: false,
 });
 
-// Updated ProjectCarousel component with increased container height
+// Updated ProjectCarousel component with conditional sizing for specific projects.
 const ProjectCarousel = ({ project }) => {
   const [goToSlide, setGoToSlide] = useState(0);
 
+  // Determine project type for sizing.
+  const isPlannerProject = project.title === "Planner Web App";
+  const isMobileProject = project.title === "SurfLink App";
+
+  let carouselContainerClasses, imageContainerClasses;
+
+  if (isPlannerProject) {
+    // Planner Web App gets a bit more width.
+    carouselContainerClasses = "relative w-[500px] h-[400px] select-none";
+    imageContainerClasses = "relative w-[320px] h-[390px] mb-4";
+  } else if (isMobileProject) {
+    // Mobile app gets a smaller container.
+    carouselContainerClasses = "relative w-[350px] h-[400px] select-none";
+    imageContainerClasses = "relative w-[180px] h-[390px] mb-4";
+  } else {
+    // Desktop projects.
+    carouselContainerClasses = "relative w-[1000px] h-[350px] select-none";
+    imageContainerClasses = "relative w-[650px] h-80 mb-4";
+  }
+
+  // Map project images to slides.
   const slides = project.images.map((imgSrc, index) => ({
     key: `${project.id}-${index}`,
     onClick: () => setGoToSlide(index),
@@ -21,7 +42,7 @@ const ProjectCarousel = ({ project }) => {
         className="flex flex-col select-none"
         onDragStart={(e) => e.preventDefault()}
       >
-        <div className="relative w-[650px] h-80 mb-4">
+        <div className={imageContainerClasses}>
           <Image
             src={imgSrc}
             alt={`${project.title} - image ${index + 1}`}
@@ -36,7 +57,7 @@ const ProjectCarousel = ({ project }) => {
     ),
   }));
 
-  // Drag gesture for the project's carousel
+  // Drag gesture for the project's carousel.
   const containerRef = useRef(null);
   const bind = useDrag(
     ({ down, movement: [mx], direction: [xDir], distance, cancel }) => {
@@ -53,11 +74,10 @@ const ProjectCarousel = ({ project }) => {
   );
 
   return (
-    // Updated height from h-[300px] to h-[350px] to fully accommodate the image container.
     <div
       ref={containerRef}
       {...bind()}
-      className="relative w-[1000px] h-[350px] select-none"
+      className={carouselContainerClasses}
       onDragStart={(e) => e.preventDefault()}
     >
       <Carousel
@@ -107,9 +127,9 @@ export default function PortfolioPage() {
         description:
           "A fully responsive web application for surfing analytics.",
         images: [
-          "/images/rafael.webp",
-          "/images/rafael-surfing.webp",
-          "/images/rafael-black-shirt.webp",
+          "/images/portfolio/surflink-web/surflink-web1.webp",
+          "/images/portfolio/surflink-web/surflink-web2.webp",
+          "/images/portfolio/surflink-web/surflink-web3.webp",
         ],
       },
       {
@@ -117,9 +137,9 @@ export default function PortfolioPage() {
         title: "Planner Web App",
         description: "An intuitive planner web application for productivity.",
         images: [
-          "/images/rafael.webp",
-          "/images/rafael-surfing.webp",
-          "/images/rafael-black-shirt.webp",
+          "/images/portfolio/planner/planner1.webp",
+          "/images/portfolio/planner/planner2.webp",
+          "/images/portfolio/planner/planner3.webp",
         ],
       },
     ],
@@ -129,9 +149,9 @@ export default function PortfolioPage() {
         title: "Moreton Bay SS",
         description: "An SEO-optimized website for a local school.",
         images: [
-          "/images/rafael.webp",
-          "/images/rafael-surfing.webp",
-          "/images/rafael-black-shirt.webp",
+          "/images/portfolio/moretonbayss/moretonbayss1.webp",
+          "/images/portfolio/moretonbayss/moretonbayss2.webp",
+          "/images/portfolio/moretonbayss/moretonbayss3.webp",
         ],
       },
       {
@@ -139,9 +159,9 @@ export default function PortfolioPage() {
         title: "Bayside Plumbing",
         description: "A high-performance website optimized for search engines.",
         images: [
-          "/images/rafael.webp",
-          "/images/rafael-surfing.webp",
-          "/images/rafael-black-shirt.webp",
+          "/images/portfolio/baysideplumbing/baysideplumbing1.webp",
+          "/images/portfolio/baysideplumbing/baysideplumbing2.webp",
+          "/images/portfolio/baysideplumbing/baysideplumbing3.webp",
         ],
       },
       {
@@ -149,9 +169,9 @@ export default function PortfolioPage() {
         title: "Pure Plumbing",
         description: "A modern SEO-focused website for a plumbing service.",
         images: [
-          "/images/rafael.webp",
-          "/images/rafael-surfing.webp",
-          "/images/rafael-black-shirt.webp",
+          "/images/portfolio/pureplumbing/pureplumbing1.webp",
+          "/images/portfolio/pureplumbing/pureplumbing2.webp",
+          "/images/portfolio/pureplumbing/pureplumbing3.webp",
         ],
       },
     ],
@@ -161,9 +181,9 @@ export default function PortfolioPage() {
         title: "SurfLink App",
         description: "A cross-platform mobile app for surfing enthusiasts.",
         images: [
-          "/images/rafael.webp",
-          "/images/rafael-surfing.webp",
-          "/images/rafael-black-shirt.webp",
+          "/images/portfolio/surflink-app/surflink-app1.webp",
+          "/images/portfolio/surflink-app/surflink-app2.webp",
+          "/images/portfolio/surflink-app/surflink-app3.webp",
         ],
       },
     ],
@@ -204,9 +224,9 @@ export default function PortfolioPage() {
    * experience. For categories with more than one project, we’ll now show
    * one project per slide.
    */
-  const visibleCount = 1; // Changed from 2 to 1 so each slide shows 1 project.
+  const visibleCount = 1; // Each slide shows 1 project.
   const clonesCount = 5; // Replicate the projects 5 times.
-  const isInfinite = portfolioData.length > 1; // Use infinite mode if there is more than 1 project.
+  const isInfinite = portfolioData.length > 1; // Use infinite mode if more than 1 project.
 
   // Build the full items array.
   const items = isInfinite
@@ -265,9 +285,11 @@ export default function PortfolioPage() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center text-white select-none">
-      <div className="container mx-auto px-4">
-        <h1 className="text-3xl font-bold mb-6 text-center">My Portfolio</h1>
-        <p className="text-center max-w-2xl mx-auto mb-10">
+      <div className="container mx-auto px-4 text-center">
+        <h1 className="md:text-5xl font-bold bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 inline-block text-transparent bg-clip-text mb-6">
+          My Portfolio
+        </h1>
+        <p className="text-center text-gray-300 mx-auto mb-10">
           Below are some of my featured projects categorized by service type.
           Select a category to explore.
         </p>
