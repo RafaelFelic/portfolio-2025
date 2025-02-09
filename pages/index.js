@@ -19,7 +19,7 @@ export default function Portfolio() {
       </div>
 
       <div className="relative z-20 text-center text-white !mt-2">
-        <h1 className="font-poppins text-5xl !mb-6">
+        <h1 className="text-5xl !mb-6">
           Welcome to{" "}
           <span className="bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 bg-clip-text text-transparent font-semibold text-6xl">
             My Portfolio
@@ -35,10 +35,10 @@ export default function Portfolio() {
           href="/about"
           className="
             inline-block !py-3 !px-8 !mt-6
-            bg-[#287cf4] text-white   
-            rounded-full border  font-medium
+            bg-gradient-to-r from-blue-200 to-blue-600 text-black   
+            rounded-full font-semibold
             transition duration-500 ease-out
-            hover:bg-[#114f94] 
+            hover:bg-gradient-to-r hover:from-blue-400 hover:to-blue-700 hover:text-white
           "
         >
           Learn More
