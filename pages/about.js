@@ -86,7 +86,7 @@ export default function About() {
             consultation, feel free to{" "}
             <Link
               href="/contact"
-              className="text-blue-400 hover:text-blue-500 underline underline-offset-4 transition"
+              className="text-blue-400 hover:text-blue-500 underline underline-offset-4 transition-colors duration-300 ease-in-out font-bold"
             >
               contact me
             </Link>

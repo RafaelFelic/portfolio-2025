@@ -55,9 +55,14 @@ export default function TechStack() {
         items: [
           { title: "GraphQL", Icon: SiGraphql, color: "#E10098" },
           { title: "PostgreSQL", Icon: SiPostgresql, color: "#336791" },
-          { title: "Databases", Icon: FaDatabase, color: "#4DB33D" },
+          {
+            title: "SQL & NoSQL",
+            Icon: FaDatabase,
+            color: "#4DB33D",
+          },
         ],
       },
+
       {
         name: "DevOps & Cloud",
         items: [

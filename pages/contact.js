@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -50,33 +53,43 @@ export default function Contact() {
           {/* Left Side: Info or Brand Statement */}
           <div className="flex flex-col justify-center bg-gray-800/70 rounded-lg p-8">
             <h2 className="text-3xl font-semibold mb-4">Let’s Work Together</h2>
-            <p className="text-gray-300 mb-4 leading-relaxed">
+            <p className="text-gray-300 mb-12 leading-relaxed">
               Whether you’re looking for a new website, a landing page to boost
               conversions, or a mobile application to engage users on the go,
               I'm here to help turn your vision into a reality. I combine best
               practices in UX/UI and performance optimization to create
               solutions that stand out and deliver results.
             </p>
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-300 mb-4">
               Alternatively, you can reach me directly via:
             </p>
             <ul className="text-gray-300">
-              <li className="flex items-center mt-2">
-                <span className="font-bold w-24">Email:</span>
+              <li className="flex items-center gap-4 mt-2">
                 <a
-                  href="mailto:hello@yourdomain.com"
-                  className="underline hover:text-blue-400 ml-2"
+                  href="https://www.linkedin.com/in/rafaelfelic/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                  className="text-white text-5xl mr-4 transition-colors duration-300 ease-in-out hover:text-blue-500"
                 >
-                  hello@yourdomain.com
+                  <FontAwesomeIcon icon={faLinkedin} />
                 </a>
-              </li>
-              <li className="flex items-center mt-2">
-                <span className="font-bold w-24">Phone:</span>
                 <a
-                  href="tel:+1234567890"
-                  className="underline hover:text-blue-400 ml-2"
+                  href="https://github.com/RafaelFelic"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub"
+                  className="text-white text-5xl mr-4 transition-colors duration-300 ease-in-out hover:text-blue-500"
                 >
-                  +1 234 567 890
+                  <FontAwesomeIcon icon={faGithub} />
+                </a>
+
+                <a
+                  href="mailto:rafaelfelic@gmail.com"
+                  aria-label="Email"
+                  className="text-white text-5xl mr-4 transition-colors duration-300 ease-in-out hover:text-blue-500"
+                >
+                  <FontAwesomeIcon icon={faEnvelope} />
                 </a>
               </li>
             </ul>

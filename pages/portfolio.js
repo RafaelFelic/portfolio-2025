@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/router";
 import { config } from "react-spring";
 import { useDrag } from "@use-gesture/react";
 import Image from "next/image";
@@ -15,22 +16,27 @@ const ProjectCarousel = ({ project }) => {
 
   // Determine project type for sizing.
   const isPlannerProject = project.title === "Planner Web App";
+  const isFlowConnectProject = project.title === "Flow Connect";
   const isMobileProject = project.title === "SurfLink App";
 
   let carouselContainerClasses, imageContainerClasses;
 
   if (isPlannerProject) {
     // Planner Web App gets a bit more width.
-    carouselContainerClasses = "relative w-[500px] h-[400px] select-none";
-    imageContainerClasses = "relative w-[320px] h-[390px] mb-4";
+    carouselContainerClasses = "relative w-[400px] h-[420px] select-none";
+    imageContainerClasses = "relative w-[220px] h-[390px] mb-4";
   } else if (isMobileProject) {
     // Mobile app gets a smaller container.
     carouselContainerClasses = "relative w-[350px] h-[400px] select-none";
     imageContainerClasses = "relative w-[180px] h-[390px] mb-4";
+  } else if (isFlowConnectProject) {
+    // Flow Connect gets a bit more width.
+    carouselContainerClasses = "relative w-[500px] h-[420px] select-none";
+    imageContainerClasses = "relative w-[280px] h-[390px] mb-4";
   } else {
     // Desktop projects.
     carouselContainerClasses = "relative w-[1000px] h-[350px] select-none";
-    imageContainerClasses = "relative w-[650px] h-80 mb-4";
+    imageContainerClasses = "relative w-[660px] h-80 mb-4";
   }
 
   // Map project images to slides.
@@ -92,6 +98,8 @@ const ProjectCarousel = ({ project }) => {
 };
 
 export default function PortfolioPage() {
+  const router = useRouter();
+
   // Define your portfolio categories and their projects.
   const portfolioCategories = {
     "Custom Websites": [
@@ -112,7 +120,7 @@ export default function PortfolioPage() {
         id: 2,
         title: "SC Barges",
         description:
-          "A high-converting landing page designed for lead generation.",
+          "A high-converting landing page designed for marine services.",
         images: [
           "/images/portfolio/scbarges/scbarges1.webp",
           "/images/portfolio/scbarges/scbarges2.webp",
@@ -125,7 +133,7 @@ export default function PortfolioPage() {
         id: 3,
         title: "SurfLink Web",
         description:
-          "A fully responsive web application for surfing analytics.",
+          "A fully responsive web application for surfing social media connecting the surf community.",
         images: [
           "/images/portfolio/surflink-web/surflink-web1.webp",
           "/images/portfolio/surflink-web/surflink-web2.webp",
@@ -147,7 +155,8 @@ export default function PortfolioPage() {
       {
         id: 5,
         title: "Moreton Bay SS",
-        description: "An SEO-optimized website for a local school.",
+        description:
+          "An SEO-optimized website for a security doors, screens, windows and blinds company.",
         images: [
           "/images/portfolio/moretonbayss/moretonbayss1.webp",
           "/images/portfolio/moretonbayss/moretonbayss2.webp",
@@ -157,7 +166,8 @@ export default function PortfolioPage() {
       {
         id: 6,
         title: "Bayside Plumbing",
-        description: "A high-performance website optimized for search engines.",
+        description:
+          "A high-performance website optimized for a local plumbing company.",
         images: [
           "/images/portfolio/baysideplumbing/baysideplumbing1.webp",
           "/images/portfolio/baysideplumbing/baysideplumbing2.webp",
@@ -179,7 +189,8 @@ export default function PortfolioPage() {
       {
         id: 8,
         title: "SurfLink App",
-        description: "A cross-platform mobile app for surfing enthusiasts.",
+        description:
+          "A cross-platform(IOS and Android) mobile app, social media connecting photographers and surfers.",
         images: [
           "/images/portfolio/surflink-app/surflink-app1.webp",
           "/images/portfolio/surflink-app/surflink-app2.webp",
@@ -192,21 +203,17 @@ export default function PortfolioPage() {
         id: 9,
         title: "Flow Connect",
         description:
-          "Branding and design for a professional networking platform.",
-        images: [
-          "/images/rafael.webp",
-          "/images/rafael-surfing.webp",
-          "/images/rafael-black-shirt.webp",
-        ],
+          "Branding and design for a local fitness company, Ginastica Natural Flow.",
+        images: ["/images/portfolio/flowconnect/flyer.webp"],
       },
       {
         id: 10,
-        title: "Mx Brazil",
-        description: "Logo and marketing design for an action sports brand.",
+        title: "Logos",
+        description: "Logo design for a variety of clients.",
         images: [
-          "/images/rafael.webp",
-          "/images/rafael-surfing.webp",
-          "/images/rafael-black-shirt.webp",
+          "/images/portfolio/logos/surflink.webp",
+          "/images/portfolio/logos/wx.webp",
+          "/images/portfolio/logos/mx-brazil.webp",
         ],
       },
     ],
@@ -216,12 +223,19 @@ export default function PortfolioPage() {
   const categories = Object.keys(portfolioCategories);
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
 
+  // Update selected category from URL query if present.
+  useEffect(() => {
+    if (router.query.category && categories.includes(router.query.category)) {
+      setSelectedCategory(router.query.category);
+    }
+  }, [router.query.category, categories]);
+
   // Get projects for the selected category.
   const portfolioData = portfolioCategories[selectedCategory];
 
   /**
    * For the horizontal (project) carousel we want an infinite (seamless)
-   * experience. For categories with more than one project, we’ll now show
+   * experience. For categories with more than one project, we'll now show
    * one project per slide.
    */
   const visibleCount = 1; // Each slide shows 1 project.
