@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Services() {
   return (
-    <main className="min-h-screen flex flex-col justify-center items-center text-gray-200 px-4 overflow-x-hidden">
+    <main className="h-auto md:h-[calc(var(--vh,1vh)*93)] flex flex-col justify-center items-center text-gray-200 px-4 overflow-x-hidden pb-16">
       {/* Container */}
       <div className="max-w-6xl w-full mx-auto">
         {/* Page Title Section */}

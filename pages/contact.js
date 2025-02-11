@@ -35,7 +35,7 @@ export default function Contact() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center text-white">
+    <main className="h-auto md:h-[calc(var(--vh,1vh)*93)] flex flex-col items-center justify-center text-white pb-20">
       <div className="max-w-6xl mx-auto">
         {/* Hero Section */}
         <section className="mb-6 text-center">

@@ -11,7 +11,7 @@ const AnimatedBackground = dynamic(
 
 function MyApp({ Component, pageProps }) {
   return (
-    <div className="min-h-[calc(100vh-20rem)] bg-[url('/images/background.webp')] bg-center bg-cover bg-no-repeat">
+    <div className="relative min-h-screen bg-[url('/images/background.webp')] bg-center bg-cover bg-no-repeat">
       <div className="absolute inset-0 bg-black opacity-60"></div>
       <AnimatedBackground />
       <Layout>

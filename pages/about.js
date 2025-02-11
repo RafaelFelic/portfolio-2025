@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function About() {
   return (
-    <div className="min-h-screen  text-gray-300 flex flex-col items-center justify-center ">
+    <div className="text-gray-300 flex flex-col items-center justify-center pb-20 h-auto md:h-[calc(var(--vh,1vh)*93)]">
       <Head>
         <title>About Me - Rafael | Web Developer</title>
         <meta
@@ -12,17 +12,17 @@ export default function About() {
         />
       </Head>
 
-      <div className="max-w-6xl w-full px-4">
-        <h1 className="inline-block text-5xl font-bold mb-6 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 bg-clip-text text-transparent">
+      <div className="max-w-6xl w-full px-4 text-center md:text-left">
+        <h1 className="inline-block text-3xl sm:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 bg-clip-text text-transparent">
           About Me
         </h1>
 
         {/* Top Section: Photo on the left & two paragraphs on the right */}
-        <div className="flex flex-col md:flex-row items-center gap-8">
+        <div className="flex flex-col md:flex-row items-center  gap-8">
           {/* Profile Photo */}
-          <div className="relative group w-full md:w-1/4 ">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 rounded-4xl blur opacity-75 group-hover:opacity-100 transition duration-1000"></div>
-            <div className="relative h-60 w-64 rounded-4xl overflow-hidden">
+          <div className="relative group w-full md:w-1/4 mx-auto md:mx-0">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 rounded-4xl blur opacity-50 group-hover:opacity-75 md:opacity-75 md:group-hover:opacity-100 transition duration-1000"></div>
+            <div className="relative h-60 w-64 rounded-4xl overflow-hidden mx-auto">
               <img
                 src="/images/rafael-black-shirt.webp"
                 alt="Rafael wearing a surfing shirt"
@@ -32,7 +32,7 @@ export default function About() {
           </div>
 
           {/* Introductory Text */}
-          <div className="flex flex-col gap-4 w-full md:w-3/4 font-light">
+          <div className="flex flex-col gap-4 w-full md:w-3/4 font-light text-left">
             <p className="leading-relaxed">
               <span className="text-xl font-bold">
                 Hi, I'm Rafael – a Web Developer, UX/UI Designer, and AI
@@ -67,7 +67,7 @@ export default function About() {
         </div>
 
         {/* Bottom Section: Additional details */}
-        <div className="mt-6 space-y-6 font-light">
+        <div className="mt-6 space-y-6 font-light text-left">
           <p className=" leading-relaxed">
             Additionally, I bring hands‑on back‑end development experience to
             every project, ensuring a complete, integrated approach.

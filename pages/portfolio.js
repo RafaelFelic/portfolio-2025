@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { useRouter } from "next/router";
 import { config } from "react-spring";
 import { useDrag } from "@use-gesture/react";
@@ -35,8 +35,10 @@ const ProjectCarousel = ({ project }) => {
     imageContainerClasses = "relative w-[280px] h-[390px] mb-4";
   } else {
     // Desktop projects.
-    carouselContainerClasses = "relative w-[1000px] h-[350px] select-none";
-    imageContainerClasses = "relative w-[660px] h-80 mb-4";
+    carouselContainerClasses =
+      "relative w-[375px] xs:w-[430px] md:w-[1000px] h-40 md:h-[350px] select-none";
+    imageContainerClasses =
+      "relative w-[300px] xs:w-[350px] md:w-[660px] h-42 md:h-80 mb-4";
   }
 
   // Map project images to slides.
@@ -219,11 +221,13 @@ export default function PortfolioPage() {
     ],
   };
 
+  // Memoize categories so they remain stable across renders.
+  const categories = useMemo(() => Object.keys(portfolioCategories), []);
+
   // Category selection state.
-  const categories = Object.keys(portfolioCategories);
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
 
-  // Update selected category from URL query if present.
+  // Initially update selected category from URL query if valid.
   useEffect(() => {
     if (router.query.category && categories.includes(router.query.category)) {
       setSelectedCategory(router.query.category);
@@ -298,7 +302,7 @@ export default function PortfolioPage() {
   }, [transitionEnabled]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center text-white select-none">
+    <div className="h-auto md:h-[calc(var(--vh,1vh)*93)] flex flex-col items-center justify-center text-white select-none overflow-x-hidden pb-20">
       <div className="container mx-auto px-4 text-center">
         <h1 className="md:text-5xl font-bold bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 inline-block text-transparent bg-clip-text mb-6">
           My Portfolio
@@ -313,7 +317,15 @@ export default function PortfolioPage() {
           {categories.map((category) => (
             <button
               key={category}
-              onClick={() => setSelectedCategory(category)}
+              onClick={() => {
+                // Update state and sync URL query parameter using shallow routing.
+                setSelectedCategory(category);
+                router.push(
+                  { pathname: router.pathname, query: { category } },
+                  undefined,
+                  { shallow: true }
+                );
+              }}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
                 selectedCategory === category
                   ? "bg-blue-500 text-white"

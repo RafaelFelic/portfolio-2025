@@ -2,6 +2,10 @@
 
 @import "tailwindcss";
 
+@theme {
+  --breakpoint-xs: 380px;
+}
+
 html,
 body {
   font-family: "Poppins", sans-serif;

@@ -57,7 +57,7 @@ export default function AnimatedBackground() {
         width: "100%",
         height: "100%",
         overflow: "hidden",
-        opacity: window.innerWidth < 768 ? 0.3 : 0.1,
+        opacity: window.innerWidth < 768 ? 0.2 : 0.1,
       }}
     />
   );

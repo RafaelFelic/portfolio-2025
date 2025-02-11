@@ -62,7 +62,6 @@ export default function TechStack() {
           },
         ],
       },
-
       {
         name: "DevOps & Cloud",
         items: [
@@ -119,29 +118,29 @@ export default function TechStack() {
   ];
 
   return (
-    <section className="min-h-screen flex items-center justify-center p-4 overflow-hidden">
-      <div className="h-full container mx-auto max-w-6xl text-center">
+    <section className="flex items-center justify-center p-4 overflow-hidden pb-12 h-auto md:h-[calc(var(--vh,1vh)*93)]">
+      <div className="container mx-auto max-w-6xl text-center">
         {/* Page Title */}
-        <h1 className="py-2 mb-4 text-center text-5xl font-bold bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 inline-block text-transparent bg-clip-text">
+        <h1 className="py-2 mb-4 text-center text-3xl sm:text-5xl font-bold bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 inline-block text-transparent bg-clip-text">
           Technology Stack
         </h1>
-        <p className="mb-6 text-gray-300">
+        <p className="mb-6 text-gray-300 text-sm sm:text-base">
           Here are the technologies I've used in my projects.
         </p>
 
         {/* Render category rows */}
-        <div className="flex flex-col gap-4 h-[calc(100% - 4rem)] overflow-y-auto">
+        <div className="flex flex-col gap-4 overflow-y-auto">
           {categoryRows.map((row, rowIndex) => (
-            <div key={rowIndex} className="flex gap-4">
+            <div key={rowIndex} className="flex flex-wrap gap-4">
               {row.map((cat) => (
                 <div
                   key={cat.name}
-                  className={`${
+                  className={`w-full ${
                     cat.name === "Design"
-                      ? "w-[160px]"
+                      ? "sm:w-[160px]"
                       : cat.name === "Version Control"
-                      ? "w-[390px]"
-                      : "flex-1"
+                      ? "sm:w-[390px]"
+                      : "sm:flex-1"
                   } rounded-xl bg-gray-800/50 p-4 backdrop-blur-sm`}
                 >
                   {/* Category Header */}
@@ -150,7 +149,7 @@ export default function TechStack() {
                   </h2>
 
                   {/* Tech Items Grid */}
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-3 justify-center">
                     {cat.items.map((item) => (
                       <SmallCard
                         key={item.title}
