@@ -16,6 +16,7 @@
     "@tailwindcss/postcss": "^4.0.3",
     "@use-gesture/react": "^10.3.1",
     "next": "^15.1.6",
+    "nodemailer": "^6.10.0",
     "postcss": "^8.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
