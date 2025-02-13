@@ -8,7 +8,7 @@ export default function Layout({ children }) {
         <title>My Portfolio</title>
         <meta name="description" content="Welcome to my portfolio website" />
       </Head>
-      <header>
+      <header className="sticky top-0 z-50 shadow-lg">
         <Navigation />
       </header>
 
