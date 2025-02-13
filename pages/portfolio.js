@@ -83,7 +83,7 @@ export default function PortfolioPage() {
   }, [transitionEnabled]);
 
   return (
-    <div className="h-auto md:h-[calc(var(--vh,1vh)*93)] flex flex-col items-center justify-center text-white select-none overflow-x-hidden pb-16">
+    <div className="min-h-[calc(var(--vh,1vh)*93)] flex flex-col items-center justify-center text-white select-none overflow-x-hidden pb-16">
       <div className="w-full md:container mx-auto md:px-4 text-center">
         <h1 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 inline-block text-transparent bg-clip-text mb-4 md:mb-6">
           My Portfolio
