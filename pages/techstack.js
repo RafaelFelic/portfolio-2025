@@ -118,7 +118,7 @@ export default function TechStack() {
   ];
 
   return (
-    <section className="flex items-center justify-center p-4 overflow-hidden pb-12 h-auto md:h-[calc(var(--vh,1vh)*93)]">
+    <section className="flex items-center justify-center p-4 overflow-hidden pb-16 h-auto md:h-[calc(var(--vh,1vh)*93)]">
       <div className="container mx-auto max-w-6xl text-center">
         {/* Page Title */}
         <h1 className="py-2 mb-4 text-center text-3xl sm:text-5xl font-bold bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 inline-block text-transparent bg-clip-text">
@@ -149,7 +149,7 @@ export default function TechStack() {
                   </h2>
 
                   {/* Tech Items Grid */}
-                  <div className="flex flex-wrap gap-3 justify-center">
+                  <div className="flex flex-wrap gap-2 xs:gap-3 justify-center md:justify-start">
                     {cat.items.map((item) => (
                       <SmallCard
                         key={item.title}

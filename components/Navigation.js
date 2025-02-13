@@ -65,7 +65,7 @@ export default function Navigation() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="text-white text-3xl mr-6 md:text-2xl md:mr-4 transition-colors duration-300 ease-in-out hover:text-blue-500"
+              className="text-white text-3xl mr-4 xs:mr-6 md:text-2xl md:mr-4 transition-colors duration-300 ease-in-out hover:text-blue-500"
             >
               <FontAwesomeIcon icon={faLinkedin} />
             </a>
@@ -74,14 +74,14 @@ export default function Navigation() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
-              className="text-white text-3xl mr-6 md:text-2xl md:mr-4 transition-colors duration-300 ease-in-out hover:text-blue-500"
+              className="text-white text-3xl mr-4 xs:mr-6 md:text-2xl md:mr-4 transition-colors duration-300 ease-in-out hover:text-blue-500"
             >
               <FontAwesomeIcon icon={faGithub} />
             </a>
             <a
               href="mailto:rafaelfelic@gmail.com"
               aria-label="Email"
-              className="text-white text-3xl mr-6 md:text-2xl md:mr-4 transition-colors duration-300 ease-in-out hover:text-blue-500"
+              className="text-white text-3xl mr-4 xs:mr-6 md:text-2xl md:mr-4 transition-colors duration-300 ease-in-out hover:text-blue-500"
             >
               <FontAwesomeIcon icon={faEnvelope} />
             </a>
@@ -134,7 +134,7 @@ export default function Navigation() {
                   <Link
                     href={link.path}
                     onClick={() => setMenuOpen(false)}
-                    className={`block text-white text-2xl py-4 px-6 rounded transition-colors duration-300 ease-in-out hover:bg-[#222] ${
+                    className={`block text-white text-2xl py-2 xs:py-4 px-6 rounded transition-colors duration-300 ease-in-out hover:bg-[#222] ${
                       isActive ? "text-blue-500" : ""
                     }`}
                   >

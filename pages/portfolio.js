@@ -1,233 +1,17 @@
-import dynamic from "next/dynamic";
-import { useState, useRef, useEffect, useMemo } from "react";
+// pages/portfolio.jsx
+import { useState, useMemo, useEffect } from "react";
 import { useRouter } from "next/router";
-import { config } from "react-spring";
-import { useDrag } from "@use-gesture/react";
-import Image from "next/image";
-
-// Dynamically import Carousel (disables SSR for this component)
-const Carousel = dynamic(() => import("react-spring-3d-carousel"), {
-  ssr: false,
-});
-
-// Updated ProjectCarousel component with conditional sizing for specific projects.
-const ProjectCarousel = ({ project }) => {
-  const [goToSlide, setGoToSlide] = useState(0);
-
-  // Determine project type for sizing.
-  const isPlannerProject = project.title === "Planner Web App";
-  const isFlowConnectProject = project.title === "Flow Connect";
-  const isMobileProject = project.title === "SurfLink App";
-
-  let carouselContainerClasses, imageContainerClasses;
-
-  if (isPlannerProject) {
-    // Planner Web App gets a bit more width.
-    carouselContainerClasses = "relative w-[400px] h-[420px] select-none";
-    imageContainerClasses = "relative w-[220px] h-[390px] mb-4";
-  } else if (isMobileProject) {
-    // Mobile app gets a smaller container.
-    carouselContainerClasses = "relative w-[350px] h-[400px] select-none";
-    imageContainerClasses = "relative w-[180px] h-[390px] mb-4";
-  } else if (isFlowConnectProject) {
-    // Flow Connect gets a bit more width.
-    carouselContainerClasses = "relative w-[500px] h-[420px] select-none";
-    imageContainerClasses = "relative w-[280px] h-[390px] mb-4";
-  } else {
-    // Desktop projects.
-    carouselContainerClasses =
-      "relative w-[375px] xs:w-[430px] md:w-[1000px] h-40 md:h-[350px] select-none";
-    imageContainerClasses =
-      "relative w-[300px] xs:w-[350px] md:w-[660px] h-42 md:h-80 mb-4";
-  }
-
-  // Map project images to slides.
-  const slides = project.images.map((imgSrc, index) => ({
-    key: `${project.id}-${index}`,
-    onClick: () => setGoToSlide(index),
-    content: (
-      <div
-        className="flex flex-col select-none"
-        onDragStart={(e) => e.preventDefault()}
-      >
-        <div className={imageContainerClasses}>
-          <Image
-            src={imgSrc}
-            alt={`${project.title} - image ${index + 1}`}
-            layout="fill"
-            objectFit="cover"
-            className="rounded"
-            draggable={false}
-            onDragStart={(e) => e.preventDefault()}
-          />
-        </div>
-      </div>
-    ),
-  }));
-
-  // Drag gesture for the project's carousel.
-  const containerRef = useRef(null);
-  const bind = useDrag(
-    ({ down, movement: [mx], direction: [xDir], distance, cancel }) => {
-      if (down && distance > 500) {
-        if (xDir < 0) {
-          setGoToSlide((prev) => (prev + 1) % slides.length);
-        } else if (xDir > 0) {
-          setGoToSlide((prev) => (prev - 1 + slides.length) % slides.length);
-        }
-        cancel();
-      }
-    },
-    { axis: "x" }
-  );
-
-  return (
-    <div
-      ref={containerRef}
-      {...bind()}
-      className={carouselContainerClasses}
-      onDragStart={(e) => e.preventDefault()}
-    >
-      <Carousel
-        slides={slides}
-        goToSlide={goToSlide}
-        offsetRadius={2}
-        showNavigation={true}
-        animationConfig={config.gentle}
-      />
-    </div>
-  );
-};
+import ProjectCarousel from "../components/Carousel";
+import { portfolioCategories } from "../data/portfolioData";
 
 export default function PortfolioPage() {
   const router = useRouter();
 
-  // Define your portfolio categories and their projects.
-  const portfolioCategories = {
-    "Custom Websites": [
-      {
-        id: 1,
-        title: "JSaltyLens",
-        description:
-          "A custom-built website tailored for a photography portfolio.",
-        images: [
-          "/images/portfolio/jsaltylens/jsaltylens1.webp",
-          "/images/portfolio/jsaltylens/jsaltylens2.webp",
-          "/images/portfolio/jsaltylens/jsaltylens3.webp",
-        ],
-      },
-    ],
-    "High-Converting Landing Pages": [
-      {
-        id: 2,
-        title: "SC Barges",
-        description:
-          "A high-converting landing page designed for marine services.",
-        images: [
-          "/images/portfolio/scbarges/scbarges1.webp",
-          "/images/portfolio/scbarges/scbarges2.webp",
-          "/images/portfolio/scbarges/scbarges3.webp",
-        ],
-      },
-    ],
-    "Web Applications": [
-      {
-        id: 3,
-        title: "SurfLink Web",
-        description:
-          "A fully responsive web application for surfing social media connecting the surf community.",
-        images: [
-          "/images/portfolio/surflink-web/surflink-web1.webp",
-          "/images/portfolio/surflink-web/surflink-web2.webp",
-          "/images/portfolio/surflink-web/surflink-web3.webp",
-        ],
-      },
-      {
-        id: 4,
-        title: "Planner Web App",
-        description: "An intuitive planner web application for productivity.",
-        images: [
-          "/images/portfolio/planner/planner1.webp",
-          "/images/portfolio/planner/planner2.webp",
-          "/images/portfolio/planner/planner3.webp",
-        ],
-      },
-    ],
-    "SEO-Focused Websites": [
-      {
-        id: 5,
-        title: "Moreton Bay SS",
-        description:
-          "An SEO-optimized website for a security doors, screens, windows and blinds company.",
-        images: [
-          "/images/portfolio/moretonbayss/moretonbayss1.webp",
-          "/images/portfolio/moretonbayss/moretonbayss2.webp",
-          "/images/portfolio/moretonbayss/moretonbayss3.webp",
-        ],
-      },
-      {
-        id: 6,
-        title: "Bayside Plumbing",
-        description:
-          "A high-performance website optimized for a local plumbing company.",
-        images: [
-          "/images/portfolio/baysideplumbing/baysideplumbing1.webp",
-          "/images/portfolio/baysideplumbing/baysideplumbing2.webp",
-          "/images/portfolio/baysideplumbing/baysideplumbing3.webp",
-        ],
-      },
-      {
-        id: 7,
-        title: "Pure Plumbing",
-        description: "A modern SEO-focused website for a plumbing service.",
-        images: [
-          "/images/portfolio/pureplumbing/pureplumbing1.webp",
-          "/images/portfolio/pureplumbing/pureplumbing2.webp",
-          "/images/portfolio/pureplumbing/pureplumbing3.webp",
-        ],
-      },
-    ],
-    "Mobile Apps": [
-      {
-        id: 8,
-        title: "SurfLink App",
-        description:
-          "A cross-platform(IOS and Android) mobile app, social media connecting photographers and surfers.",
-        images: [
-          "/images/portfolio/surflink-app/surflink-app1.webp",
-          "/images/portfolio/surflink-app/surflink-app2.webp",
-          "/images/portfolio/surflink-app/surflink-app3.webp",
-        ],
-      },
-    ],
-    "Graphic Design": [
-      {
-        id: 9,
-        title: "Flow Connect",
-        description:
-          "Branding and design for a local fitness company, Ginastica Natural Flow.",
-        images: ["/images/portfolio/flowconnect/flyer.webp"],
-      },
-      {
-        id: 10,
-        title: "Logos",
-        description: "Logo design for a variety of clients.",
-        images: [
-          "/images/portfolio/logos/surflink.webp",
-          "/images/portfolio/logos/wx.webp",
-          "/images/portfolio/logos/mx-brazil.webp",
-        ],
-      },
-    ],
-  };
-
-  // Memoize categories so they remain stable across renders.
+  // Get categories from data.
   const categories = useMemo(() => Object.keys(portfolioCategories), []);
-
-  // Category selection state.
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
 
-  // Initially update selected category from URL query if valid.
+  // Update selected category based on URL query.
   useEffect(() => {
     if (router.query.category && categories.includes(router.query.category)) {
       setSelectedCategory(router.query.category);
@@ -237,28 +21,22 @@ export default function PortfolioPage() {
   // Get projects for the selected category.
   const portfolioData = portfolioCategories[selectedCategory];
 
-  /**
-   * For the horizontal (project) carousel we want an infinite (seamless)
-   * experience. For categories with more than one project, we'll now show
-   * one project per slide.
-   */
-  const visibleCount = 1; // Each slide shows 1 project.
-  const clonesCount = 5; // Replicate the projects 5 times.
-  const isInfinite = portfolioData.length > 1; // Use infinite mode if more than 1 project.
-
-  // Build the full items array.
+  // Infinite carousel logic.
+  const visibleCount = 1;
+  const clonesCount = 5;
+  const isInfinite = portfolioData.length > 1;
   const items = isInfinite
     ? Array.from({ length: clonesCount }, () => portfolioData).flat()
     : portfolioData;
 
-  // In infinite mode, start in the center copy.
+  // Start in the center copy in infinite mode.
   const initialIndex = isInfinite
     ? Math.floor(clonesCount / 2) * portfolioData.length
     : 0;
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [transitionEnabled, setTransitionEnabled] = useState(true);
 
-  // Reset the carousel when the category changes.
+  // Reset carousel on category change.
   useEffect(() => {
     if (isInfinite) {
       setCurrentIndex(Math.floor(clonesCount / 2) * portfolioData.length);
@@ -266,30 +44,33 @@ export default function PortfolioPage() {
     }
   }, [selectedCategory, isInfinite, portfolioData.length]);
 
-  // Handlers for next/previous buttons.
+  // Handlers for navigation.
   const handleNext = () => {
+    if (!transitionEnabled) return; // avoid rapid clicks during transition
     setTransitionEnabled(true);
     setCurrentIndex((prev) => prev + 1);
   };
 
   const handlePrev = () => {
+    if (!transitionEnabled) return; // only process click if transition is allowed
     setTransitionEnabled(true);
     setCurrentIndex((prev) => prev - 1);
   };
 
-  // When a transition ends, reposition the index if needed.
+  // Adjust index when transition ends to create a seamless infinite loop.
+  // This correction brings the currentIndex back into the center copy of the items.
   const handleTransitionEnd = () => {
     if (!isInfinite) return;
     const total = portfolioData.length;
-    // Define the bounds for the middle (safe) copy.
     const middleIndexStart = Math.floor(clonesCount / 2) * total;
     const middleIndexEnd = middleIndexStart + total;
+
     if (currentIndex < middleIndexStart) {
       setTransitionEnabled(false);
-      setCurrentIndex(middleIndexEnd - (middleIndexStart - currentIndex));
+      setCurrentIndex(currentIndex + total);
     } else if (currentIndex >= middleIndexEnd) {
       setTransitionEnabled(false);
-      setCurrentIndex(middleIndexStart + (currentIndex - middleIndexEnd));
+      setCurrentIndex(currentIndex - total);
     }
   };
 
@@ -302,23 +83,22 @@ export default function PortfolioPage() {
   }, [transitionEnabled]);
 
   return (
-    <div className="h-auto md:h-[calc(var(--vh,1vh)*93)] flex flex-col items-center justify-center text-white select-none overflow-x-hidden pb-20">
-      <div className="container mx-auto px-4 text-center">
-        <h1 className="md:text-5xl font-bold bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 inline-block text-transparent bg-clip-text mb-6">
+    <div className="h-auto md:h-[calc(var(--vh,1vh)*93)] flex flex-col items-center justify-center text-white select-none overflow-x-hidden pb-16">
+      <div className="w-full md:container mx-auto md:px-4 text-center">
+        <h1 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 inline-block text-transparent bg-clip-text mb-4 md:mb-6">
           My Portfolio
         </h1>
-        <p className="text-center text-gray-300 mx-auto mb-10">
+        <p className="text-center text-gray-300 mx-auto mb-4 md:mb-10">
           Below are some of my featured projects categorized by service type.
           Select a category to explore.
         </p>
 
-        {/* Category Selection Buttons */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        {/* Category Selection */}
+        <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-6 md:mb-12">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => {
-                // Update state and sync URL query parameter using shallow routing.
                 setSelectedCategory(category);
                 router.push(
                   { pathname: router.pathname, query: { category } },
@@ -326,7 +106,7 @@ export default function PortfolioPage() {
                   { shallow: true }
                 );
               }}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+              className={`px-2 md:px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
                 selectedCategory === category
                   ? "bg-blue-500 text-white"
                   : "bg-gray-700 text-gray-300"
@@ -343,11 +123,17 @@ export default function PortfolioPage() {
             <>
               <button
                 onClick={handlePrev}
-                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-gray-800/50 p-3 rounded-full hover:bg-gray-800 transition-all"
+                disabled={!transitionEnabled}
+                aria-label="Previous Project"
+                className={`absolute md:left-4 ${
+                  selectedCategory === "Web Applications"
+                    ? "md:bottom-auto bottom-40"
+                    : "md:bottom-auto bottom-20"
+                } md:top-1/2 -translate-y-1/2 z-10 px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-800 rounded-full shadow-md hover:shadow-xl transition transform duration-300 hover:scale-110 text-white text-xs font-medium flex items-center gap-2 cursor-pointer`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
+                  className="h-4 w-4"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -359,14 +145,21 @@ export default function PortfolioPage() {
                     d="M15 19l-7-7 7-7"
                   />
                 </svg>
+                <span>PREV</span>
               </button>
               <button
                 onClick={handleNext}
-                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-gray-800/50 p-3 rounded-full hover:bg-gray-800 transition-all"
+                disabled={!transitionEnabled}
+                className={`absolute right-0 md:right-4 ${
+                  selectedCategory === "Web Applications"
+                    ? "md:bottom-auto bottom-40"
+                    : "md:bottom-auto bottom-20"
+                } md:top-1/2 -translate-y-1/2 z-10 px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-800 rounded-full shadow-md hover:shadow-xl transition transform duration-300 hover:scale-110 text-white text-xs font-medium flex items-center gap-2 cursor-pointer`}
               >
+                <span>NEXT</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
+                  className="h-4 w-4"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -379,12 +172,12 @@ export default function PortfolioPage() {
                   />
                 </svg>
               </button>
+
               <div className="overflow-hidden">
                 <div
                   className="flex"
                   onTransitionEnd={handleTransitionEnd}
                   style={{
-                    // With visibleCount set to 1, each slide takes 100% of the width.
                     transform: `translateX(-${
                       currentIndex * (100 / visibleCount)
                     }%)`,
@@ -397,7 +190,7 @@ export default function PortfolioPage() {
                     <div
                       key={index}
                       style={{ width: `${100 / visibleCount}%` }}
-                      className="flex-shrink-0 px-4"
+                      className="flex-shrink-0 md:px-4"
                     >
                       <div className="flex flex-col items-center justify-center">
                         <ProjectCarousel project={project} />
@@ -416,10 +209,10 @@ export default function PortfolioPage() {
               </div>
             </>
           ) : (
-            // For categories with 1 project, simply show it.
+            // Single project display.
             <div className="flex justify-center gap-8">
               {portfolioData.map((project) => (
-                <div key={project.id} className="w-1/2 max-w-[600px]">
+                <div key={project.id} className="w-2/3 md:w-1/2 max-w-[600px]">
                   <div className="flex flex-col items-center justify-center">
                     <ProjectCarousel project={project} />
                     <div className="flex flex-col items-center justify-center mt-20">

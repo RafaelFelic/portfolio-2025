@@ -29,8 +29,8 @@ export default function AnimatedBackground() {
     // 4. Animation Loop
     const animate = () => {
       requestAnimationFrame(animate);
-      mesh.rotation.x += 0.00008;
-      mesh.rotation.y += 0.0005;
+      mesh.rotation.x += 0.0001;
+      mesh.rotation.y += 0.0001;
       renderer.render(scene, camera);
     };
     animate();
@@ -57,7 +57,7 @@ export default function AnimatedBackground() {
         width: "100%",
         height: "100%",
         overflow: "hidden",
-        opacity: window.innerWidth < 768 ? 0.2 : 0.1,
+        opacity: window.innerWidth < 768 ? 0.3 : 0.2,
       }}
     />
   );
