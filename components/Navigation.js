@@ -41,13 +41,19 @@ export default function Navigation() {
           <nav className="hidden md:block">
             <ul className="flex list-none m-0 p-0">
               {navLinks.map((link) => {
-                const isActive = router.pathname === link.path;
+                // Use an active check that supports nested routes (except for the home page)
+                const isActive =
+                  link.path === "/"
+                    ? router.asPath === "/"
+                    : router.asPath.startsWith(link.path);
                 return (
                   <li key={link.path} className="ml-8">
                     <Link
                       href={link.path}
-                      className={`text-white no-underline transition-colors duration-300 ease-in-out hover:text-blue-500 ${
-                        isActive ? "text-blue-500" : ""
+                      className={`no-underline transition-colors duration-300 ease-in-out ${
+                        isActive
+                          ? "text-blue-500"
+                          : "text-white hover:text-blue-500"
                       }`}
                     >
                       {link.name}
@@ -126,16 +132,20 @@ export default function Navigation() {
 
         {/* Mobile nav links with increased font size and gap */}
         <nav>
-          <ul className="flex flex-col list-none p-4">
+          <ul className="flex flex-col list-none px-12 text-3xl">
             {navLinks.map((link) => {
-              const isActive = router.pathname === link.path;
+              // Use the same logic for mobile navigation links
+              const isActive =
+                link.path === "/"
+                  ? router.asPath === "/"
+                  : router.asPath.startsWith(link.path);
               return (
-                <li key={link.path} className="my-4">
+                <li key={link.path} className="my-8">
                   <Link
                     href={link.path}
                     onClick={() => setMenuOpen(false)}
-                    className={`block text-white text-2xl py-2 xs:py-4 px-6 rounded transition-colors duration-300 ease-in-out hover:bg-[#222] ${
-                      isActive ? "text-blue-500" : ""
+                    className={`no-underline transition-colors duration-300 ease-in-out ${
+                      isActive ? "text-blue-400 font-bold" : "text-white"
                     }`}
                   >
                     {link.name}
