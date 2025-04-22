@@ -3,18 +3,25 @@ import Navigation from "./Navigation";
 
 export default function Layout({ children }) {
   return (
-    <div className="relative">
+    <div className="relative min-h-screen bg-black">
       <Head>
-        <title>My Portfolio</title>
-        <meta name="description" content="Welcome to my portfolio website" />
+        <title>Rafael Feliciano | Portfolio</title>
+        <meta
+          name="description"
+          content="Rafael Feliciano's portfolio - Web Developer & UI/UX Designer"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
-      <header className="sticky top-0 z-50 shadow-lg">
-        <Navigation />
-      </header>
 
-      <main>{children}</main>
-      <footer className="absolute bottom-0 w-full text-center text-gray-300 text-sm py-5 md:p-4 font-light font-mono hover:text-white transition-colors duration-300 ease-in-out">
-        <p>© 2025 Rafael Feliciano. All rights reserved.</p>
+      <Navigation />
+
+      <main className="relative z-10">{children}</main>
+
+      <footer className="absolute bottom-0 w-full text-center text-gray-400 text-sm py-5 font-light transition-colors duration-300 ease-in-out hover:text-blue-300">
+        <p>
+          © {new Date().getFullYear()} Rafael Feliciano. All rights reserved.
+        </p>
       </footer>
     </div>
   );
