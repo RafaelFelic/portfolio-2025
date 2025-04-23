@@ -95,7 +95,7 @@ const ProjectCarousel = ({ project }) => {
             onClick={() =>
               setGoToSlide((prev) => (prev - 1 + slides.length) % slides.length)
             }
-            className="absolute -bottom-20 md:-bottom-18 left-[35%] -translate-y-1/2 z-10 bg-blue-500/50 p-3 rounded-full hover:bg-blue-500 transition-all cursor-pointer"
+            className="absolute -bottom-16 md:-bottom-18 left-[35%] -translate-y-1/2 z-10 bg-blue-500/50 p-3 rounded-full hover:bg-blue-500 transition-all cursor-pointer"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -114,7 +114,7 @@ const ProjectCarousel = ({ project }) => {
           </button>
           <button
             onClick={() => setGoToSlide((prev) => (prev + 1) % slides.length)}
-            className="absolute -bottom-20 md:-bottom-18 right-[35%] -translate-y-1/2 z-10 bg-blue-500/50 p-3 rounded-full hover:bg-blue-500 transition-all cursor-pointer"
+            className="absolute -bottom-16 md:-bottom-18 right-[35%] -translate-y-1/2 z-10 bg-blue-500/50 p-3 rounded-full hover:bg-blue-500 transition-all cursor-pointer"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

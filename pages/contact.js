@@ -32,6 +32,7 @@ export default function Contact() {
 
   const [isVisible, setIsVisible] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const mousePosition = useMousePosition();
 
   useEffect(() => {
@@ -40,6 +41,22 @@ export default function Contact() {
       setLoaded(true);
     }, 300);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    // Check if device is mobile based on screen width
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    // Initial check
+    checkMobile();
+
+    // Add resize listener
+    window.addEventListener("resize", checkMobile);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   // Notification state for showing feedback messages in a modal
@@ -105,7 +122,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="h-screen overflow-hidden bg-gradient-to-b from-black via-gray-900 to-blue-900/30 flex flex-col text-gray-300">
+    <div className="py-12 min-h-screen bg-gradient-to-b from-black via-gray-900 to-blue-900/30 flex flex-col text-gray-300">
       <Head>
         <title>Contact - Rafael | Web Developer</title>
         <meta
@@ -114,16 +131,18 @@ export default function Contact() {
         />
       </Head>
 
-      {/* Custom cursor follower */}
-      <div
-        className="fixed w-8 h-8 rounded-full bg-blue-400 bg-opacity-20 pointer-events-none z-50 mix-blend-difference transition-transform duration-100 ease-out"
-        style={{
-          transform: `translate(${mousePosition.x - 16}px, ${
-            mousePosition.y - 16
-          }px)`,
-          display: loaded ? "block" : "none",
-        }}
-      />
+      {/* Custom cursor follower - only show on non-mobile devices */}
+      {!isMobile && (
+        <div
+          className="fixed w-8 h-8 rounded-full bg-blue-400 bg-opacity-20 pointer-events-none z-50 mix-blend-difference transition-transform duration-100 ease-out"
+          style={{
+            transform: `translate(${mousePosition.x - 16}px, ${
+              mousePosition.y - 60
+            }px)`,
+            display: loaded ? "block" : "none",
+          }}
+        />
+      )}
 
       {/* Background particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

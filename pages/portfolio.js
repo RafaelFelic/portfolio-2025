@@ -22,8 +22,12 @@ export default function PortfolioPage() {
   const [isVisible, setIsVisible] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const mousePosition = useMousePosition();
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
+    // Check if device is touch-enabled (mobile)
+    setIsTouchDevice("ontouchstart" in window || navigator.maxTouchPoints > 0);
+
     setIsVisible(true);
     const timer = setTimeout(() => {
       setLoaded(true);
@@ -106,7 +110,7 @@ export default function PortfolioPage() {
   }, [transitionEnabled]);
 
   return (
-    <div className="h-screen overflow-hidden bg-gradient-to-b from-black via-gray-900 to-blue-900/30 flex flex-col text-gray-300">
+    <div className="py-6 min-h-screen bg-gradient-to-b from-black via-gray-900 to-blue-900/30 flex flex-col text-gray-300">
       <Head>
         <title>Portfolio - Rafael | Web Developer</title>
         <meta
@@ -115,16 +119,18 @@ export default function PortfolioPage() {
         />
       </Head>
 
-      {/* Custom cursor follower */}
-      <div
-        className="fixed w-8 h-8 rounded-full bg-blue-400 bg-opacity-20 pointer-events-none z-50 mix-blend-difference transition-transform duration-100 ease-out"
-        style={{
-          transform: `translate(${mousePosition.x - 16}px, ${
-            mousePosition.y - 16
-          }px)`,
-          display: loaded ? "block" : "none",
-        }}
-      />
+      {/* Custom cursor follower - hidden on mobile */}
+      {!isTouchDevice && (
+        <div
+          className="fixed w-8 h-8 rounded-full bg-blue-400 bg-opacity-20 pointer-events-none z-50 mix-blend-difference transition-transform duration-100 ease-out"
+          style={{
+            transform: `translate(${mousePosition.x - 16}px, ${
+              mousePosition.y - 30
+            }px)`,
+            display: loaded ? "block" : "none",
+          }}
+        />
+      )}
 
       {/* Background particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

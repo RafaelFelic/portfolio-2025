@@ -77,7 +77,7 @@ export default function About() {
   }, []);
 
   return (
-    <div className="text-gray-300 h-screen overflow-hidden bg-gradient-to-b from-black via-gray-900 to-blue-900/30 flex flex-col">
+    <div className="text-gray-300 min-h-screen bg-gradient-to-b from-black via-gray-900 to-blue-900/30 flex flex-col">
       <Head>
         <title>About Me - Rafael | Web Developer</title>
         <meta
@@ -86,24 +86,25 @@ export default function About() {
         />
       </Head>
 
-      {/* Custom cursor follower */}
+      {/* Custom cursor follower - hidden on mobile */}
       <div
-        className="fixed w-8 h-8 rounded-full bg-blue-400 bg-opacity-20 pointer-events-none z-50 mix-blend-difference transition-transform duration-100 ease-out"
+        className={`fixed w-8 h-8 rounded-full bg-blue-400 bg-opacity-20 pointer-events-none z-50 mix-blend-difference transition-transform duration-100 ease-out hidden md:${
+          loaded ? "block" : "hidden"
+        }`}
         style={{
           transform: `translate(${mousePosition.x - 16}px, ${
             mousePosition.y - 16
           }px)`,
-          display: loaded ? "block" : "none",
         }}
       />
 
-      <main className="flex-1 max-w-6xl mx-auto px-4 flex items-center justify-center overflow-hidden">
+      <main className="flex-1 max-w-6xl mx-auto px-4 py-12 pb-20 md:py-0 flex items-center justify-center">
         <div className="w-full">
           {/* Animated section header */}
           <div
             className={`transition-all duration-1000 transform ${
               isVisible ? "opacity-100" : "opacity-0 translate-y-10"
-            }`}
+            } pt-8 md:pt-0`}
           >
             <h1 className="text-3xl sm:text-5xl font-bold mb-3 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 bg-clip-text text-transparent">
               About Me

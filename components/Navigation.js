@@ -58,7 +58,7 @@ export default function Navigation() {
       <header
         className={`fixed w-full py-3 z-[1000] transition-all duration-300 ${
           scrolled
-            ? "bg-black/80 backdrop-blur-md shadow-lg shadow-blue-900/10"
+            ? "bg-black/50 backdrop-blur-md shadow-lg shadow-blue-900/10"
             : "bg-transparent"
         }`}
       >
@@ -70,7 +70,7 @@ export default function Navigation() {
               className="font-light text-xl md:text-2xl relative group"
               aria-label="Go to Home"
             >
-              <span className="bg-gradient-to-r from-blue-300 to-blue-600 bg-clip-text text-transparent transition-all duration-300 ease-in-out">
+              <span className="bg-gradient-to-r from-blue-300 to-blue-600 bg-clip-text text-transparent transition-all duration-300 ease-in-out font-bold">
                 Rafael Feliciano
               </span>
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-blue-600 transition-all duration-300 ease-in-out group-hover:w-full"></span>
@@ -133,13 +133,13 @@ export default function Navigation() {
 
           {/* Social Icons & Hamburger Button for Mobile */}
           <div className="flex items-center">
-            <div className="hidden md:flex items-center space-x-4 mr-6">
+            <div className="hidden md:flex items-center space-x-5">
               <a
                 href="https://www.linkedin.com/in/rafaelfelic/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                className="text-white/70 hover:text-blue-400 text-xl transition-transform duration-300 hover:scale-110"
+                className="text-white/70 hover:text-blue-400 text-2xl transition-transform duration-300 hover:scale-110"
               >
                 <FontAwesomeIcon icon={faLinkedin} />
               </a>
@@ -148,14 +148,14 @@ export default function Navigation() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
-                className="text-white/70 hover:text-blue-400 text-xl transition-transform duration-300 hover:scale-110"
+                className="text-white/70 hover:text-blue-400 text-2xl transition-transform duration-300 hover:scale-110"
               >
                 <FontAwesomeIcon icon={faGithub} />
               </a>
               <a
                 href="mailto:rafaelfelic@gmail.com"
                 aria-label="Email"
-                className="text-white/70 hover:text-blue-400 text-xl transition-transform duration-300 hover:scale-110"
+                className="text-white/70 hover:text-blue-400 text-2xl transition-transform duration-300 hover:scale-110"
               >
                 <FontAwesomeIcon icon={faEnvelope} />
               </a>
@@ -175,7 +175,7 @@ export default function Navigation() {
 
       {/* Mobile Menu Overlay with blur effect */}
       <div
-        className={`fixed inset-0 bg-black/80 backdrop-blur-md md:hidden z-[1050] transition-opacity duration-500 ${
+        className={`fixed inset-0 bg-black/50 backdrop-blur-md md:hidden z-[1050] transition-opacity duration-500 ${
           menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         onClick={toggleMenu}
@@ -195,7 +195,7 @@ export default function Navigation() {
             onClick={() => setMenuOpen(false)}
             className="font-light text-xl"
           >
-            <span className="bg-gradient-to-r from-blue-300 to-blue-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-300 to-blue-600 bg-clip-text text-transparent font-bold text-2xl">
               Rafael Feliciano
             </span>
           </Link>
@@ -245,18 +245,36 @@ export default function Navigation() {
                 </li>
               );
             })}
+
+            {/* CTA Button for Mobile Menu */}
+            <li
+              className="mt-10 transform transition-all duration-300 ease-out"
+              style={{
+                opacity: menuOpen ? 1 : 0,
+                transform: menuOpen ? "translateX(0)" : "translateX(20px)",
+                transitionDelay: `${navLinks.length * 100}ms`,
+              }}
+            >
+              <Link
+                href="/contact"
+                onClick={() => setMenuOpen(false)}
+                className="block w-full text-center py-3 px-4 border-2 border-blue-400 text-blue-400 rounded-full text-xl font-medium transition-all duration-300 hover:bg-blue-400/20 hover:text-blue-300"
+              >
+                Let's Talk
+              </Link>
+            </li>
           </ul>
         </nav>
 
         {/* Social media icons in mobile menu */}
         <div className="absolute bottom-12 left-0 w-full px-8">
-          <div className="flex items-center justify-start space-x-6">
+          <div className="flex items-center justify-start space-x-8">
             <a
               href="https://www.linkedin.com/in/rafaelfelic/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="text-white/70 hover:text-blue-400 text-2xl transition-transform duration-300 hover:scale-110"
+              className="text-white/80 text-3xl"
             >
               <FontAwesomeIcon icon={faLinkedin} />
             </a>
@@ -265,14 +283,14 @@ export default function Navigation() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
-              className="text-white/70 hover:text-blue-400 text-2xl transition-transform duration-300 hover:scale-110"
+              className="text-white/80 text-3xl"
             >
               <FontAwesomeIcon icon={faGithub} />
             </a>
             <a
               href="mailto:rafaelfelic@gmail.com"
               aria-label="Email"
-              className="text-white/70 hover:text-blue-400 text-2xl transition-transform duration-300 hover:scale-110"
+              className="text-white/80 text-3xl"
             >
               <FontAwesomeIcon icon={faEnvelope} />
             </a>

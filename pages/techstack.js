@@ -34,21 +34,34 @@ import Image from "next/image";
 
 function useMousePosition() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // Check if device is mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768 || "ontouchstart" in window);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
     const setFromEvent = (e) => setPosition({ x: e.clientX, y: e.clientY });
     window.addEventListener("mousemove", setFromEvent);
-    return () => window.removeEventListener("mousemove", setFromEvent);
+
+    return () => {
+      window.removeEventListener("mousemove", setFromEvent);
+      window.removeEventListener("resize", checkMobile);
+    };
   }, []);
 
-  return position;
+  return { position, isMobile };
 }
 
 export default function TechStack() {
   const [isVisible, setIsVisible] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [activeCategory, setActiveCategory] = useState("all");
-  const mousePosition = useMousePosition();
+  const { position: mousePosition, isMobile } = useMousePosition();
 
   useEffect(() => {
     setIsVisible(true);
@@ -301,16 +314,18 @@ export default function TechStack() {
 
   return (
     <div className="h-screen overflow-hidden bg-gradient-to-b from-black via-gray-900 to-blue-900/30 flex flex-col text-gray-300">
-      {/* Custom cursor follower */}
-      <div
-        className="fixed w-8 h-8 rounded-full bg-blue-400 bg-opacity-20 pointer-events-none z-50 mix-blend-difference transition-transform duration-100 ease-out"
-        style={{
-          transform: `translate(${mousePosition.x - 16}px, ${
-            mousePosition.y - 16
-          }px)`,
-          display: loaded ? "block" : "none",
-        }}
-      />
+      {/* Custom cursor follower - hidden on mobile */}
+      {!isMobile && (
+        <div
+          className="fixed w-8 h-8 rounded-full bg-blue-400 bg-opacity-20 pointer-events-none z-50 mix-blend-difference transition-transform duration-100 ease-out"
+          style={{
+            transform: `translate(${mousePosition.x - 16}px, ${
+              mousePosition.y - 16
+            }px)`,
+            display: loaded ? "block" : "none",
+          }}
+        />
+      )}
 
       {/* Background particles for visual interest */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

@@ -3,7 +3,7 @@ import Navigation from "./Navigation";
 
 export default function Layout({ children }) {
   return (
-    <div className="relative min-h-screen bg-black">
+    <div className="relative">
       <Head>
         <title>Rafael Feliciano | Portfolio</title>
         <meta
@@ -18,7 +18,7 @@ export default function Layout({ children }) {
 
       <main className="relative z-10">{children}</main>
 
-      <footer className="absolute bottom-0 w-full text-center text-gray-400 text-sm py-5 font-light transition-colors duration-300 ease-in-out hover:text-blue-300">
+      <footer className="absolute bottom-0 w-full text-center text-gray-400 text-sm py-5 font-light transition-colors duration-300 ease-in-out hover:text-blue-300 z-50">
         <p>
           © {new Date().getFullYear()} Rafael Feliciano. All rights reserved.
         </p>
