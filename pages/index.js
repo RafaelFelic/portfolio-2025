@@ -1,234 +1,228 @@
+import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { faArrowRight, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { portfolioCategories } from "../data/portfolioData";
 
-function useMousePosition() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
+const skills = [
+  {
+    label: "React",
+    className: "bg-[#61DAFB]/15 text-[#61DAFB] ring-[#61DAFB]/30",
+  },
+  { label: "Next.js", className: "bg-white/10 text-white ring-white/25" },
+  {
+    label: "TypeScript",
+    className: "bg-[#3178C6]/20 text-[#7EB3F0] ring-[#3178C6]/40",
+  },
+  {
+    label: "Node.js",
+    className: "bg-[#339933]/20 text-[#6BD46B] ring-[#339933]/40",
+  },
+  {
+    label: "Tailwind",
+    className: "bg-[#06B6D4]/15 text-[#22D3EE] ring-[#06B6D4]/30",
+  },
+  {
+    label: "JavaScript",
+    className: "bg-[#F7DF1E]/15 text-[#F7DF1E] ring-[#F7DF1E]/30",
+  },
+  {
+    label: "UX/UI",
+    className: "bg-purple-500/20 text-purple-300 ring-purple-400/40",
+  },
+  {
+    label: "Full-Stack",
+    className: "bg-blue-500/20 text-blue-300 ring-blue-400/40",
+  },
+  {
+    label: "AI",
+    className: "bg-fuchsia-500/20 text-fuchsia-300 ring-fuchsia-400/40",
+  },
+];
 
-  useEffect(() => {
-    // Check if we're on a touch device
-    setIsTouchDevice("ontouchstart" in window || navigator.maxTouchPoints > 0);
+const specialtyCount = Object.keys(portfolioCategories).length;
 
-    if (!isTouchDevice) {
-      const setFromEvent = (e) => setPosition({ x: e.clientX, y: e.clientY });
-      window.addEventListener("mousemove", setFromEvent);
-      return () => window.removeEventListener("mousemove", setFromEvent);
-    }
-  }, [isTouchDevice]);
+const stats = [
+  { value: "20+", label: "Projects shipped" },
+  { value: specialtyCount, label: "Specialties" },
+  { value: "100%", label: "Custom built" },
+];
 
-  return { position, isTouchDevice };
-}
+const socials = [
+  {
+    href: "https://www.linkedin.com/in/rafaelfelic/",
+    icon: faLinkedin,
+    label: "LinkedIn",
+  },
+  { href: "https://github.com/RafaelFelic", icon: faGithub, label: "GitHub" },
+  { href: "mailto:rafaelfelic@gmail.com", icon: faEnvelope, label: "Email" },
+];
 
-export default function Portfolio() {
-  const { position: mousePosition, isTouchDevice } = useMousePosition();
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    // Simulate loading time
-    const timer = setTimeout(() => {
-      setLoaded(true);
-    }, 800);
-    return () => clearTimeout(timer);
-  }, []);
-
+export default function Home() {
   return (
     <>
-      {/* Preloader */}
-      <div
-        className={`fixed inset-0 z-50 flex items-center justify-center bg-black transition-opacity duration-500 ${
-          loaded ? "opacity-0 pointer-events-none" : "opacity-100"
-        }`}
-      >
-        <div className="text-4xl font-bold bg-gradient-to-r from-blue-300 to-blue-600 bg-clip-text text-transparent animate-pulse">
-          Loading...
-        </div>
-      </div>
-
-      {/* Custom cursor follower - hidden on touch devices */}
-      {!isTouchDevice && (
-        <div
-          className="fixed w-8 h-8 rounded-full bg-blue-400 bg-opacity-20 pointer-events-none z-50 mix-blend-difference transition-transform duration-100 ease-out"
-          style={{
-            transform: `translate(${mousePosition.x - 16}px, ${
-              mousePosition.y - 16
-            }px)`,
-            display: loaded ? "block" : "none",
-          }}
+      <Head>
+        <title>Rafael Feliciano | Creative Developer</title>
+        <meta
+          name="description"
+          content="Rafael Feliciano - Creative Developer building fast, custom websites and web applications with React, Next.js and TypeScript."
         />
-      )}
+      </Head>
 
-      <section
-        className={`bg-gradient-to-b from-black via-gray-900 to-blue-900/30 h-screen transition-colors duration-500 text-white`}
-      >
-        {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-transparent opacity-60" />
+      <section className="relative flex flex-1 flex-col overflow-hidden text-white">
+        <div className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-center gap-8 px-6 py-4 short:gap-5 md:flex-row md:gap-16 md:px-10 md:py-6 short:md:gap-10">
+          <div className="order-2 w-full md:order-1 md:w-3/5">
+            <div className="flex flex-col items-center text-center md:items-start md:text-left">
+              <span className="inline-flex items-center gap-2 rounded-full border border-blue-400/30 bg-blue-500/10 px-4 py-1.5 text-xs font-medium tracking-wide text-blue-200 opacity-0 backdrop-blur-sm animate-[fadeInScale_0.6s_ease-out_0.1s_forwards] sm:text-sm">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                </span>
+                Available for new projects
+              </span>
 
-        {/* Background particles - reduced for mobile */}
-        <div className="absolute inset-0 overflow-hidden">
-          {[...Array(isTouchDevice ? 10 : 20)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute rounded-full bg-blue-400/10"
-              style={{
-                width: `${Math.random() * 10 + 4}px`,
-                height: `${Math.random() * 10 + 4}px`,
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                animation: `float ${
-                  Math.random() * 10 + 15
-                }s infinite ease-in-out`,
-              }}
-            />
-          ))}
-        </div>
+              <p className="mt-6 short:mt-3 text-base font-light text-blue-300/90 opacity-0 animate-[fadeInScale_0.6s_ease-out_0.2s_forwards] sm:text-lg">
+                Hello, I&apos;m{" "}
+                <span className="font-medium text-blue-200">Rafael</span>
+              </p>
 
-        {/* Main content */}
-        <div className="relative  py-16 flex flex-col md:flex-row items-center h-screen justify-center md:justify-between max-w-7xl mx-auto px-6 md:px-10">
-          {/* Left side: Image with more spacing */}
-          <div className="w-full md:w-2/5 flex items-center justify-center md:justify-end mb-12 md:mb-0 md:pr-10">
-            <div className="relative w-[180px] h-[180px] sm:w-[200px] sm:h-[200px] md:w-[300px] md:h-[300px] animate-[fadeInScale_1s_ease-out]">
-              <div
-                className="absolute top-0 left-0 w-full h-full rounded-full bg-gradient-to-r from-blue-400 to-blue-600 opacity-30 animate-pulse"
-                style={{ animationDuration: "3s" }}
-              />
-              <Link href="/about">
-                <img
-                  className="relative w-full h-full opacity-90 border-4 border-blue-500/50 object-cover block rounded-full shadow-[0_0_60px_rgba(96,165,250,0.3)] hover:scale-105 transition-transform duration-500 cursor-pointer"
-                  src="/images/rafael-black-shirt.webp"
-                  alt="Rafael's profile picture"
-                />
-              </Link>
+              <h1 className="mt-2 text-4xl font-bold leading-[1.05] tracking-tight opacity-0 animate-[fadeInScale_0.6s_ease-out_0.3s_forwards] sm:text-5xl md:text-7xl short:md:text-5xl">
+                <span className="block text-white">Creative</span>
+                <span className="block bg-gradient-to-r from-blue-300 via-cyan-300 to-blue-500 bg-clip-text text-transparent">
+                  Developer
+                </span>
+              </h1>
 
-              {/* Floating skill badges - adjusted for mobile */}
-              {/* Top (12 o'clock) - UX/UI */}
-              <Link
-                href="/techstack"
-                className="absolute top-[-20px] sm:top-[-30px] left-1/2 -translate-x-1/2 bg-purple-600/90 text-white px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-medium shadow-lg transform rotate-6 hover:scale-110 transition-transform cursor-pointer"
-              >
-                UX/UI
-              </Link>
+              <p className="mt-6 short:mt-3 max-w-xl text-base font-light leading-relaxed text-gray-300/90 opacity-0 animate-[fadeInScale_0.6s_ease-out_0.4s_forwards] sm:text-lg">
+                Turning ideas into{" "}
+                <span className="font-medium text-white">
+                  amazing digital experiences
+                </span>{" "}
+                — fast, accessible and built to convert.
+              </p>
 
-              {/* Top right (1-2 o'clock) - React */}
-              <Link
-                href="/techstack"
-                className="absolute top-[10%] right-[-20px] sm:right-[-24px] bg-[#61DAFB]/90 text-black px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-medium shadow-lg transform rotate-12 hover:scale-110 transition-transform cursor-pointer"
-              >
-                React
-              </Link>
+              <div className="mt-7 short:mt-4 flex flex-wrap items-center justify-center gap-3 opacity-0 animate-[fadeInScale_0.6s_ease-out_0.5s_forwards] md:justify-start">
+                <Link
+                  href="/portfolio"
+                  className="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/25 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-500/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 sm:text-base"
+                >
+                  View Projects
+                  <FontAwesomeIcon
+                    icon={faArrowRight}
+                    className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1"
+                  />
+                </Link>
 
-              {/* Right (3 o'clock) - Node.js */}
-              <Link
-                href="/techstack"
-                className="absolute top-1/2 -translate-y-1/2 right-[-20px] sm:right-[-30px] bg-[#339933]/90 text-white px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-medium shadow-lg transform -rotate-8 hover:scale-110 transition-transform cursor-pointer"
-              >
-                Node.js
-              </Link>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-white/30 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 sm:text-base"
+                >
+                  Let&apos;s talk
+                </Link>
 
-              {/* Bottom right (4-5 o'clock) - Tailwind */}
-              <Link
-                href="/techstack"
-                className="absolute bottom-[10%] right-[-20px] sm:right-[-24px] bg-[#06B6D4]/90 text-white px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-medium shadow-lg transform -rotate-12 hover:scale-110 transition-transform cursor-pointer"
-              >
-                Tailwind
-              </Link>
+                <Link
+                  href="/about"
+                  className="inline-flex items-center justify-center px-2 py-3 text-sm font-medium text-gray-400 underline-offset-4 transition-colors duration-300 hover:text-blue-300 hover:underline sm:text-base"
+                >
+                  About me
+                </Link>
+              </div>
 
-              {/* Bottom (6 o'clock) - Full-Stack */}
-              <Link
-                href="/techstack"
-                className="absolute bottom-[-20px] sm:bottom-[-30px] left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-600/90 to-green-600/90 text-white px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-medium shadow-lg transform -rotate-3 hover:scale-110 transition-transform cursor-pointer"
-              >
-                Full-Stack
-              </Link>
+              <dl className="mt-8 short:mt-4 grid w-full max-w-md grid-cols-3 gap-4 border-t border-white/10 pt-6 short:pt-3 opacity-0 animate-[fadeInScale_0.6s_ease-out_0.6s_forwards]">
+                {stats.map((stat) => (
+                  <div key={stat.label} className="text-center md:text-left">
+                    <dt className="text-2xl font-bold text-white sm:text-3xl">
+                      {stat.value}
+                    </dt>
+                    <dd className="mt-1 text-[11px] uppercase tracking-wider text-gray-500 sm:text-xs">
+                      {stat.label}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
 
-              {/* Bottom left (7-8 o'clock) - JavaScript */}
-              <Link
-                href="/techstack"
-                className="absolute bottom-[10%] left-[-20px] sm:left-[-24px] bg-[#F7DF1E]/90 text-black px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-medium shadow-lg transform rotate-10 hover:scale-110 transition-transform cursor-pointer"
-              >
-                JavaScript
-              </Link>
-
-              {/* Left (9 o'clock) - Next.js */}
-              <Link
-                href="/techstack"
-                className="absolute top-1/2 -translate-y-1/2 left-[-20px] sm:left-[-30px] bg-black/90 text-white px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-medium shadow-lg transform rotate-8 hover:scale-110 transition-transform cursor-pointer"
-              >
-                Next.js
-              </Link>
-
-              {/* Top left (10-11 o'clock) - TypeScript */}
-              <Link
-                href="/techstack"
-                className="absolute top-[10%] left-[-20px] sm:left-[-24px] bg-[#3178C6]/90 text-white px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-medium shadow-lg transform -rotate-15 hover:scale-110 transition-transform cursor-pointer"
-              >
-                TypeScript
-              </Link>
+              <div className="mt-6 short:mt-3 flex items-center gap-5 opacity-0 animate-[fadeInScale_0.6s_ease-out_0.7s_forwards]">
+                {socials.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target={
+                      social.href.startsWith("http") ? "_blank" : undefined
+                    }
+                    rel={
+                      social.href.startsWith("http")
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
+                    aria-label={social.label}
+                    className="text-xl text-gray-500 transition-all duration-300 hover:-translate-y-0.5 hover:text-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-400"
+                  >
+                    <FontAwesomeIcon icon={social.icon} />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Right side: Text content with added spacing */}
-          <div className="w-full md:w-3/5 text-center md:text-left flex flex-col items-center md:items-start space-y-4 md:space-y-6 md:pl-10">
-            <h2 className="text-xl md:text-2xl font-light text-blue-400 opacity-0 animate-[fadeInScale_0.5s_ease-out_0.2s_forwards]">
-              Hello, I'm{" "}
-              <span className="text-blue-300 font-medium">Rafael</span>
-            </h2>
+          <div className="order-1 flex w-full justify-center md:order-2 md:w-2/5">
+            <div className="relative aspect-square w-[168px] animate-[fadeInScale_0.9s_ease-out] sm:w-[220px] md:w-[240px] short:md:w-[200px] xl:w-[300px] xl:[--orbit:200px] short:xl:w-[236px] short:xl:[--orbit:168px]">
+              <div
+                className="absolute inset-[-12%] rounded-full bg-[conic-gradient(from_0deg,rgba(59,130,246,0.5),rgba(34,211,238,0.5),rgba(147,51,234,0.5),rgba(59,130,246,0.5))] opacity-30 blur-2xl animate-[shimmer_8s_ease-in-out_infinite]"
+                style={{ backgroundSize: "200% 200%" }}
+              />
+              <div className="absolute inset-[-6%] rounded-full border border-white/10" />
+              <div className="absolute inset-[-18%] rounded-full border border-white/5" />
 
-            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold opacity-0 animate-[fadeInScale_0.5s_ease-out_0.4s_forwards]">
-              <span className="bg-gradient-to-r from-blue-300 via-blue-400 to-blue-600 bg-clip-text text-transparent">
-                Creative Developer
-              </span>
-            </h1>
-
-            <p className="text-base sm:text-lg md:text-xl font-light max-w-lg opacity-0 animate-[fadeInScale_0.5s_ease-out_0.6s_forwards]">
-              Turning ideas into{" "}
-              <span className="font-medium">amazing digital experiences</span>
-            </p>
-
-            <div className="flex flex-wrap justify-center md:justify-start gap-3 mt-3 opacity-0 animate-[fadeInScale_0.5s_ease-out_0.8s_forwards]">
               <Link
                 href="/about"
-                className="py-2 px-6 sm:py-3 sm:px-8 border-2 border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500/20 rounded-full font-medium transition duration-300 ease-out text-sm sm:text-base"
+                aria-label="Learn more about Rafael"
+                className="group relative block h-full w-full overflow-hidden rounded-full shadow-[0_0_70px_rgba(56,189,248,0.25)] ring-1 ring-blue-400/40 transition-transform duration-500 hover:scale-[1.04] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-400"
               >
-                About Me
-              </Link>
-              <Link
-                href="/portfolio"
-                className="py-2 px-6 sm:py-3 sm:px-8 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-full font-medium transition duration-300 ease-out hover:shadow-lg hover:shadow-blue-500/30 hover:translate-y-[-2px] text-sm sm:text-base"
-              >
-                View Projects
+                <Image
+                  src="/images/rafael-black-shirt.webp"
+                  alt="Rafael Feliciano"
+                  fill
+                  priority
+                  sizes="(max-width: 640px) 168px, (max-width: 768px) 220px, (max-width: 1280px) 240px, 300px"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <span className="absolute inset-0 bg-gradient-to-t from-blue-950/40 via-transparent to-transparent" />
               </Link>
 
-              <Link
-                href="/contact"
-                className="py-2 px-6 sm:py-3 sm:px-8 bg-transparent 
-                border-2 
-                border-blue-400 
-                text-blue-400 
-                rounded-full 
-                font-medium 
-                transition 
-                duration-300 
-                ease-out hover:text-blue-300 text-sm sm:text-base"
-              >
-                Contact
-              </Link>
+              <div className="pointer-events-none absolute inset-0 hidden xl:block">
+                {skills.map((skill, i) => {
+                  const angle = i * (360 / skills.length) - 90;
+                  return (
+                    <Link
+                      key={skill.label}
+                      href="/techstack"
+                      style={{
+                        transform: `translate(-50%, -50%) rotate(${angle}deg) translate(var(--orbit)) rotate(${-angle}deg)`,
+                        animationDelay: `${i * 0.4}s`,
+                      }}
+                      className={`pointer-events-auto absolute left-1/2 top-1/2 whitespace-nowrap rounded-full px-3 py-1 text-xs font-medium ring-1 backdrop-blur-md transition-colors duration-300 hover:brightness-125 ${skill.className}`}
+                    >
+                      {skill.label}
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
+          </div>
+        </div>
 
-            {/* Social icons */}
-            <div className="flex gap-6 mt-6 md:mt-8 opacity-0 animate-[fadeInScale_0.5s_ease-out_1s_forwards]">
-              {["github", "linkedin", "twitter"].map((social, i) => (
-                <a
-                  key={social}
-                  href={`https://${social}.com`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-blue-400 transform transition-all duration-300 hover:scale-110"
-                  aria-label={`Visit my ${social} profile`}
-                >
-                  <div className="w-6 h-6 opacity-70 hover:opacity-100"></div>
-                </a>
-              ))}
-            </div>
+        <div className="relative w-full overflow-hidden border-t border-white/5 py-3 xl:hidden">
+          <div className="flex w-max animate-[marquee_22s_linear_infinite] gap-3 pr-3">
+            {[...skills, ...skills].map((skill, i) => (
+              <span
+                key={`${skill.label}-${i}`}
+                className={`whitespace-nowrap rounded-full px-3 py-1 text-xs font-medium ring-1 ${skill.className}`}
+              >
+                {skill.label}
+              </span>
+            ))}
           </div>
         </div>
       </section>

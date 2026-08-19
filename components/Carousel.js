@@ -31,9 +31,9 @@ const ProjectCarousel = ({ project }) => {
     imageContainerClasses = "relative w-[280px] h-[390px] mb-4";
   } else {
     carouselContainerClasses =
-      "relative w-[375px] xs:w-[430px] md:w-[1000px] h-48 md:h-[350px] select-none";
+      "relative w-[375px] xs:w-[430px] md:w-[1000px] h-48 md:h-[350px] short:md:h-[240px] shorter:md:h-[188px] select-none";
     imageContainerClasses =
-      "relative w-[300px] xs:w-[350px] md:w-[660px] h-42 md:h-80 mb-4";
+      "relative w-[300px] xs:w-[350px] md:w-[660px] h-42 md:h-80 short:md:h-52 shorter:md:h-44 mb-4 short:mb-2";
   }
 
   // Map images to slides.

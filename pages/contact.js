@@ -6,21 +6,9 @@ import {
   faEnvelope,
   faPaperPlane,
   faUser,
-  faSubject,
+  faTag,
   faComment,
 } from "@fortawesome/free-solid-svg-icons";
-
-function useMousePosition() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const setFromEvent = (e) => setPosition({ x: e.clientX, y: e.clientY });
-    window.addEventListener("mousemove", setFromEvent);
-    return () => window.removeEventListener("mousemove", setFromEvent);
-  }, []);
-
-  return position;
-}
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -31,32 +19,9 @@ export default function Contact() {
   });
 
   const [isVisible, setIsVisible] = useState(false);
-  const [loaded, setLoaded] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const mousePosition = useMousePosition();
 
   useEffect(() => {
     setIsVisible(true);
-    const timer = setTimeout(() => {
-      setLoaded(true);
-    }, 300);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    // Check if device is mobile based on screen width
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    // Initial check
-    checkMobile();
-
-    // Add resize listener
-    window.addEventListener("resize", checkMobile);
-
-    // Cleanup
-    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   // Notification state for showing feedback messages in a modal
@@ -122,7 +87,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="py-12 min-h-screen bg-gradient-to-b from-black via-gray-900 to-blue-900/30 flex flex-col text-gray-300">
+    <div className="flex flex-1 flex-col text-gray-300">
       <Head>
         <title>Contact - Rafael | Web Developer</title>
         <meta
@@ -131,37 +96,6 @@ export default function Contact() {
         />
       </Head>
 
-      {/* Custom cursor follower - only show on non-mobile devices */}
-      {!isMobile && (
-        <div
-          className="fixed w-8 h-8 rounded-full bg-blue-400 bg-opacity-20 pointer-events-none z-50 mix-blend-difference transition-transform duration-100 ease-out"
-          style={{
-            transform: `translate(${mousePosition.x - 16}px, ${
-              mousePosition.y - 60
-            }px)`,
-            display: loaded ? "block" : "none",
-          }}
-        />
-      )}
-
-      {/* Background particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full bg-blue-400/10"
-            style={{
-              width: `${Math.random() * 10 + 4}px`,
-              height: `${Math.random() * 10 + 4}px`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animation: `float ${
-                Math.random() * 10 + 15
-              }s infinite ease-in-out`,
-            }}
-          />
-        ))}
-      </div>
 
       {/* Modal Notification Component */}
       {notification.visible && (
@@ -192,7 +126,7 @@ export default function Contact() {
         </div>
       )}
 
-      <main className="flex-1 max-w-6xl mx-auto px-4 py-8 md:py-0 w-full flex items-center justify-center overflow-hidden">
+      <main className="flex-1 max-w-6xl mx-auto px-4 py-8 short:py-3 md:py-0 w-full flex items-center justify-center overflow-hidden">
         <div className="w-full">
           {/* Header section with animated entry */}
           <div
@@ -200,11 +134,11 @@ export default function Contact() {
               isVisible ? "opacity-100" : "opacity-0 translate-y-10"
             }`}
           >
-            <h1 className="text-3xl sm:text-5xl font-bold mb-3 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 bg-clip-text text-transparent">
+            <h1 className="text-3xl sm:text-5xl short:sm:text-4xl font-bold mb-3 short:mb-2 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 bg-clip-text text-transparent">
               Get in Touch
             </h1>
-            <div className="w-16 h-1 bg-blue-500 mx-auto mb-4"></div>
-            <p className="text-gray-300 max-w-2xl mx-auto mb-6 text-sm md:text-base">
+            <div className="w-16 h-1 bg-blue-500 mx-auto mb-4 short:mb-2"></div>
+            <p className="text-gray-300 max-w-2xl mx-auto mb-6 short:mb-3 text-sm md:text-base shorter:hidden">
               Have a project in mind or just want to say hello? I'd love to hear
               from you!
             </p>
@@ -218,12 +152,12 @@ export default function Contact() {
             style={{ transitionDelay: "200ms" }}
           >
             {/* Left Side: Info card */}
-            <div className="bg-gradient-to-br from-blue-900/20 to-gray-900/40 backdrop-blur-sm border border-blue-800/30 rounded-xl p-8 flex flex-col justify-between h-full">
+            <div className="bg-gradient-to-br from-blue-900/20 to-gray-900/40 backdrop-blur-sm border border-blue-800/30 rounded-xl p-8 short:p-4 shorter:p-3 flex flex-col justify-between h-full">
               <div>
-                <h2 className="text-2xl font-bold text-blue-300 mb-4">
+                <h2 className="text-2xl font-bold text-blue-300 mb-4 short:mb-2">
                   Let's Work Together
                 </h2>
-                <p className="text-gray-300 mb-6 leading-relaxed">
+                <p className="text-gray-300 mb-6 short:mb-3 leading-relaxed">
                   Whether you're looking for a new website, a landing page to
                   boost conversions, or a mobile application, I'm here to help
                   turn your vision into reality. I combine best practices in
@@ -242,7 +176,7 @@ export default function Contact() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
-                  className="bg-gradient-to-br from-blue-900/40 to-blue-800/20 p-4 rounded-full border border-blue-700/30 text-2xl text-blue-300 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/20"
+                  className="bg-gradient-to-br from-blue-900/40 to-blue-800/20 p-4 short:p-3 rounded-full border border-blue-700/30 text-2xl short:text-xl text-blue-300 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/20"
                 >
                   <FontAwesomeIcon icon={faLinkedin} />
                 </a>
@@ -251,14 +185,14 @@ export default function Contact() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub"
-                  className="bg-gradient-to-br from-blue-900/40 to-blue-800/20 p-4 rounded-full border border-blue-700/30 text-2xl text-blue-300 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/20"
+                  className="bg-gradient-to-br from-blue-900/40 to-blue-800/20 p-4 short:p-3 rounded-full border border-blue-700/30 text-2xl short:text-xl text-blue-300 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/20"
                 >
                   <FontAwesomeIcon icon={faGithub} />
                 </a>
                 <a
                   href="mailto:rafaelfelic@gmail.com"
                   aria-label="Email"
-                  className="bg-gradient-to-br from-blue-900/40 to-blue-800/20 p-4 rounded-full border border-blue-700/30 text-2xl text-blue-300 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/20"
+                  className="bg-gradient-to-br from-blue-900/40 to-blue-800/20 p-4 short:p-3 rounded-full border border-blue-700/30 text-2xl short:text-xl text-blue-300 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/20"
                 >
                   <FontAwesomeIcon icon={faEnvelope} />
                 </a>
@@ -268,14 +202,14 @@ export default function Contact() {
             {/* Right Side: Contact Form */}
             <form
               onSubmit={handleSubmit}
-              className="bg-gradient-to-br from-gray-900/70 to-gray-800/30 backdrop-blur-sm border border-gray-700/30 rounded-xl p-8 shadow-lg"
+              className="bg-gradient-to-br from-gray-900/70 to-gray-800/30 backdrop-blur-sm border border-gray-700/30 rounded-xl p-8 short:p-4 shorter:p-3 shadow-lg"
             >
-              <h2 className="text-2xl font-bold text-blue-300 mb-6">
+              <h2 className="text-2xl short:text-xl font-bold text-blue-300 mb-6 short:mb-3">
                 Send a Message
               </h2>
 
               {/* Name field */}
-              <div className="mb-4 relative">
+              <div className="mb-4 shorter:mb-2 relative">
                 <div className="absolute left-3 top-3 text-blue-400">
                   <FontAwesomeIcon icon={faUser} />
                 </div>
@@ -287,12 +221,12 @@ export default function Contact() {
                   required
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full bg-gray-900/50 text-white border border-gray-700 rounded-lg px-10 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-gray-500 transition-all duration-300"
+                  className="w-full bg-gray-900/50 text-white border border-gray-700 rounded-lg px-10 py-3 shorter:py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-gray-500 transition-all duration-300"
                 />
               </div>
 
               {/* Email field */}
-              <div className="mb-4 relative">
+              <div className="mb-4 shorter:mb-2 relative">
                 <div className="absolute left-3 top-3 text-blue-400">
                   <FontAwesomeIcon icon={faEnvelope} />
                 </div>
@@ -304,14 +238,14 @@ export default function Contact() {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full bg-gray-900/50 text-white border border-gray-700 rounded-lg px-10 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-gray-500 transition-all duration-300"
+                  className="w-full bg-gray-900/50 text-white border border-gray-700 rounded-lg px-10 py-3 shorter:py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-gray-500 transition-all duration-300"
                 />
               </div>
 
               {/* Subject field */}
-              <div className="mb-4 relative">
+              <div className="mb-4 shorter:mb-2 relative">
                 <div className="absolute left-3 top-3 text-blue-400">
-                  <FontAwesomeIcon icon={faSubject} />
+                  <FontAwesomeIcon icon={faTag} />
                 </div>
                 <input
                   type="text"
@@ -320,7 +254,7 @@ export default function Contact() {
                   placeholder="Subject (Optional)"
                   value={formData.subject}
                   onChange={handleChange}
-                  className="w-full bg-gray-900/50 text-white border border-gray-700 rounded-lg px-10 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-gray-500 transition-all duration-300"
+                  className="w-full bg-gray-900/50 text-white border border-gray-700 rounded-lg px-10 py-3 shorter:py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-gray-500 transition-all duration-300"
                 />
               </div>
 
@@ -332,19 +266,19 @@ export default function Contact() {
                 <textarea
                   id="message"
                   name="message"
-                  rows={4}
+                  rows={3}
                   placeholder="Your Message"
                   required
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full bg-gray-900/50 text-white border border-gray-700 rounded-lg px-10 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-gray-500 transition-all duration-300"
+                  className="w-full bg-gray-900/50 text-white border border-gray-700 rounded-lg px-10 py-3 shorter:py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-gray-500 transition-all duration-300"
                 />
               </div>
 
               {/* Submit button */}
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 text-white font-medium px-6 py-3 rounded-lg shadow-md hover:shadow-lg shadow-blue-800/30 hover:shadow-blue-700/40 transition-all duration-300 flex items-center justify-center space-x-2 transform hover:-translate-y-1"
+                className="w-full bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 text-white font-medium px-6 py-3 shorter:py-2 rounded-lg shadow-md hover:shadow-lg shadow-blue-800/30 hover:shadow-blue-700/40 transition-all duration-300 flex items-center justify-center space-x-2 transform hover:-translate-y-1"
               >
                 <span>Send Message</span>
                 <FontAwesomeIcon icon={faPaperPlane} />
@@ -353,25 +287,6 @@ export default function Contact() {
           </div>
         </div>
       </main>
-
-      {/* Animations */}
-      <style jsx global>{`
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0) translateX(0);
-          }
-          25% {
-            transform: translateY(-15px) translateX(10px);
-          }
-          50% {
-            transform: translateY(10px) translateX(-10px);
-          }
-          75% {
-            transform: translateY(-5px) translateX(15px);
-          }
-        }
-      `}</style>
     </div>
   );
 }

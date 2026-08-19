@@ -5,34 +5,12 @@ import Head from "next/head";
 import ProjectCarousel from "../components/Carousel";
 import { portfolioCategories } from "../data/portfolioData";
 
-function useMousePosition() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const setFromEvent = (e) => setPosition({ x: e.clientX, y: e.clientY });
-    window.addEventListener("mousemove", setFromEvent);
-    return () => window.removeEventListener("mousemove", setFromEvent);
-  }, []);
-
-  return position;
-}
-
 export default function PortfolioPage() {
   const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
-  const [loaded, setLoaded] = useState(false);
-  const mousePosition = useMousePosition();
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
-    // Check if device is touch-enabled (mobile)
-    setIsTouchDevice("ontouchstart" in window || navigator.maxTouchPoints > 0);
-
     setIsVisible(true);
-    const timer = setTimeout(() => {
-      setLoaded(true);
-    }, 300);
-    return () => clearTimeout(timer);
   }, []);
 
   // Get categories from data.
@@ -110,7 +88,7 @@ export default function PortfolioPage() {
   }, [transitionEnabled]);
 
   return (
-    <div className="py-6 min-h-screen bg-gradient-to-b from-black via-gray-900 to-blue-900/30 flex flex-col text-gray-300">
+    <div className="flex flex-1 flex-col text-gray-300">
       <Head>
         <title>Portfolio - Rafael | Web Developer</title>
         <meta
@@ -119,39 +97,8 @@ export default function PortfolioPage() {
         />
       </Head>
 
-      {/* Custom cursor follower - hidden on mobile */}
-      {!isTouchDevice && (
-        <div
-          className="fixed w-8 h-8 rounded-full bg-blue-400 bg-opacity-20 pointer-events-none z-50 mix-blend-difference transition-transform duration-100 ease-out"
-          style={{
-            transform: `translate(${mousePosition.x - 16}px, ${
-              mousePosition.y - 30
-            }px)`,
-            display: loaded ? "block" : "none",
-          }}
-        />
-      )}
 
-      {/* Background particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full bg-blue-400/10"
-            style={{
-              width: `${Math.random() * 10 + 4}px`,
-              height: `${Math.random() * 10 + 4}px`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animation: `float ${
-                Math.random() * 10 + 15
-              }s infinite ease-in-out`,
-            }}
-          />
-        ))}
-      </div>
-
-      <main className="flex-1 max-w-6xl mx-auto px-4 py-12 w-full flex items-center justify-center overflow-hidden">
+      <main className="flex-1 max-w-6xl mx-auto px-4 py-6 short:py-2 shorter:py-0 w-full flex items-center justify-center overflow-hidden">
         <div className="w-full flex flex-col items-center">
           {/* Animated header section */}
           <div
@@ -159,11 +106,11 @@ export default function PortfolioPage() {
               isVisible ? "opacity-100" : "opacity-0 translate-y-10"
             }`}
           >
-            <h1 className="text-3xl sm:text-5xl font-bold mb-3 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 bg-clip-text text-transparent">
+            <h1 className="text-3xl sm:text-5xl short:sm:text-4xl shorter:sm:text-3xl font-bold mb-3 short:mb-1 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 bg-clip-text text-transparent">
               My Portfolio
             </h1>
-            <div className="w-16 h-1 bg-blue-500 mx-auto mb-4"></div>
-            <p className="text-gray-300 max-w-2xl mx-auto mb-6 text-sm px-4">
+            <div className="w-16 h-1 bg-blue-500 mx-auto mb-4 short:mb-2 shorter:mb-2 short:mt-2"></div>
+            <p className="text-gray-300 max-w-2xl mx-auto mb-6 short:mb-2 text-sm px-4 short:hidden">
               Explore my featured projects showcasing innovative solutions
               across various platforms and technologies.
             </p>
@@ -266,8 +213,8 @@ export default function PortfolioPage() {
                       >
                         <div className="flex flex-col items-center justify-center p-4">
                           <ProjectCarousel project={project} />
-                          <div className="flex flex-col items-center justify-center mt-6 bg-gradient-to-b from-blue-900/30 to-black/30 p-4 rounded-xl backdrop-blur-sm border border-blue-800/30">
-                            <h3 className="text-xl font-semibold mb-2 text-blue-200">
+                          <div className="flex flex-col items-center justify-center mt-6 short:mt-2 bg-gradient-to-b from-blue-900/30 to-black/30 p-4 short:p-2 rounded-xl backdrop-blur-sm border border-blue-800/30">
+                            <h3 className="text-xl short:text-lg font-semibold mb-2 short:mb-1 text-blue-200">
                               {project.title}
                             </h3>
                             <p className="text-sm text-center text-gray-300 max-w-lg">
@@ -373,25 +320,6 @@ export default function PortfolioPage() {
           </div>
         </div>
       </main>
-
-      {/* Animations */}
-      <style jsx global>{`
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0) translateX(0);
-          }
-          25% {
-            transform: translateY(-15px) translateX(10px);
-          }
-          50% {
-            transform: translateY(10px) translateX(-10px);
-          }
-          75% {
-            transform: translateY(-5px) translateX(15px);
-          }
-        }
-      `}</style>
     </div>
   );
 }
