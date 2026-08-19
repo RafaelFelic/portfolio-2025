@@ -78,7 +78,7 @@ export default function Navigation() {
           </div>
 
           {/* Desktop Navigation with animated underline and glow effect */}
-          <nav className="hidden md:block">
+          <nav className="hidden lg:block">
             <ul className="flex items-center space-x-8 list-none m-0 p-0">
               {navLinks.map((link) => {
                 // Use an active check that supports nested routes (except for the home page)
@@ -133,7 +133,7 @@ export default function Navigation() {
 
           {/* Social Icons & Hamburger Button for Mobile */}
           <div className="flex items-center">
-            <div className="hidden md:flex items-center space-x-5">
+            <div className="hidden lg:flex items-center space-x-5">
               <a
                 href="https://www.linkedin.com/in/rafaelfelic/"
                 target="_blank"
@@ -164,7 +164,7 @@ export default function Navigation() {
             {/* Modern hamburger button */}
             <button
               onClick={toggleMenu}
-              className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-600/10 text-white text-xl transition-all duration-300 ease-in-out hover:bg-blue-600/20 md:hidden"
+              className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-600/10 text-white text-xl transition-all duration-300 ease-in-out hover:bg-blue-600/20 lg:hidden"
               aria-label="Toggle menu"
             >
               <FontAwesomeIcon icon={menuOpen ? faTimes : faBars} />
@@ -175,7 +175,7 @@ export default function Navigation() {
 
       {/* Mobile Menu Overlay with blur effect */}
       <div
-        className={`fixed inset-0 bg-black/50 backdrop-blur-md md:hidden z-[1050] transition-opacity duration-500 ${
+        className={`fixed inset-0 bg-black/50 backdrop-blur-md lg:hidden z-[1050] transition-opacity duration-500 ${
           menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         onClick={toggleMenu}
@@ -184,7 +184,7 @@ export default function Navigation() {
 
       {/* Mobile Sidebar with modern styling and animations */}
       <div
-        className={`fixed top-0 right-0 h-full w-4/5 bg-gradient-to-b from-blue-900/90 to-black/95 backdrop-blur-lg rounded-l-2xl transform transition-transform duration-500 ease-in-out md:hidden z-[1100] ${
+        className={`fixed top-0 right-0 h-full w-4/5 bg-gradient-to-b from-blue-900/90 to-black/95 backdrop-blur-lg rounded-l-2xl transform transition-transform duration-500 ease-in-out lg:hidden z-[1100] ${
           menuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
