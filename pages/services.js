@@ -2,50 +2,15 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Head from "next/head";
 
-function useMousePosition() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const setFromEvent = (e) => setPosition({ x: e.clientX, y: e.clientY });
-    window.addEventListener("mousemove", setFromEvent);
-    return () => window.removeEventListener("mousemove", setFromEvent);
-  }, []);
-
-  return position;
-}
-
 export default function Services() {
-  const [loaded, setLoaded] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const mousePosition = useMousePosition();
 
   useEffect(() => {
-    // Simulate loading time
-    const timer = setTimeout(() => {
-      setLoaded(true);
-      setIsVisible(true);
-    }, 300);
-
-    // Check if device is mobile
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    // Initial check
-    checkMobile();
-
-    // Add resize listener
-    window.addEventListener("resize", checkMobile);
-
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener("resize", checkMobile);
-    };
+    setIsVisible(true);
   }, []);
 
   return (
-    <div className="py-12 min-h-screen overflow-hidden bg-gradient-to-b from-black via-gray-900 to-blue-900/30 flex flex-col text-gray-300">
+    <div className="overflow-hidden flex flex-1 flex-col text-gray-300">
       <Head>
         <title>Services | Rafael - Web Developer</title>
         <meta
@@ -54,39 +19,8 @@ export default function Services() {
         />
       </Head>
 
-      {/* Custom cursor follower - only shown on non-mobile devices */}
-      {!isMobile && (
-        <div
-          className="fixed w-8 h-8 rounded-full bg-blue-400 bg-opacity-20 pointer-events-none z-50 mix-blend-difference transition-transform duration-100 ease-out"
-          style={{
-            transform: `translate(${mousePosition.x - 16}px, ${
-              mousePosition.y - 60
-            }px)`,
-            display: loaded ? "block" : "none",
-          }}
-        />
-      )}
 
-      {/* Background particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full bg-blue-400/10"
-            style={{
-              width: `${Math.random() * 10 + 4}px`,
-              height: `${Math.random() * 10 + 4}px`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animation: `float ${
-                Math.random() * 10 + 15
-              }s infinite ease-in-out`,
-            }}
-          />
-        ))}
-      </div>
-
-      <main className="flex-1 max-w-6xl mx-auto px-4 py-8 w-full flex items-center justify-center">
+      <main className="flex-1 max-w-6xl mx-auto px-4 py-8 short:py-3 shorter:py-1 w-full flex items-center justify-center">
         <div className="w-full">
           {/* Page Title Section with animation */}
           <div
@@ -96,18 +30,18 @@ export default function Services() {
                 : "opacity-0 translate-y-10"
             }`}
           >
-            <h1 className="text-3xl sm:text-5xl font-bold bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 bg-clip-text text-transparent mb-3">
+            <h1 className="text-3xl sm:text-5xl short:sm:text-4xl font-bold bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 bg-clip-text text-transparent mb-3 short:mb-2">
               My Services
             </h1>
-            <div className="w-16 h-1 bg-blue-500 mx-auto mb-4"></div>
-            <p className="text-gray-300 max-w-2xl mx-auto mb-6 text-sm md:text-base">
+            <div className="w-16 h-1 bg-blue-500 mx-auto mb-4 short:mb-2 shorter:mb-1"></div>
+            <p className="text-gray-300 max-w-2xl mx-auto mb-6 short:mb-3 text-sm md:text-base">
               From responsive websites to cross-platform apps, I deliver
               impactful digital experiences that help your business stand out.
             </p>
           </div>
 
           {/* Services Grid with staggered animation */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 short:md:gap-2">
             {/* Service Card: Custom Websites */}
             <div
               className={`transition-all duration-1000 transform ${
@@ -126,7 +60,7 @@ export default function Services() {
                 <div className="block h-full cursor-pointer">
                   <div className="group relative bg-gray-800/40 backdrop-blur-sm rounded-xl p-3 h-full hover:bg-gray-700/40 transition-all duration-300 border border-gray-700/50 hover:border-blue-500/50 flex flex-col hover:transform hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/20">
                     <div className="mb-2">
-                      <div className="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center mb-2 group-hover:bg-blue-500/30 transition-all duration-300 group-hover:scale-110">
+                      <div className="w-10 h-10 short:w-8 short:h-8 bg-blue-500/20 rounded-xl flex items-center justify-center mb-2 short:mb-1 group-hover:bg-blue-500/30 transition-all duration-300 group-hover:scale-110">
                         <svg
                           className="w-5 h-5 text-blue-400"
                           fill="none"
@@ -188,7 +122,7 @@ export default function Services() {
                 <div className="block h-full cursor-pointer">
                   <div className="group relative bg-gray-800/40 backdrop-blur-sm rounded-xl p-3 h-full flex flex-col hover:bg-gray-700/40 transition-all duration-300 border border-gray-700/50 hover:border-blue-500/50 hover:transform hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/20">
                     <div className="mb-2">
-                      <div className="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center mb-2 group-hover:bg-blue-500/30 transition-all duration-300 group-hover:scale-110">
+                      <div className="w-10 h-10 short:w-8 short:h-8 bg-blue-500/20 rounded-xl flex items-center justify-center mb-2 short:mb-1 group-hover:bg-blue-500/30 transition-all duration-300 group-hover:scale-110">
                         <svg
                           className="w-5 h-5 text-blue-400"
                           fill="none"
@@ -250,7 +184,7 @@ export default function Services() {
                 <div className="block h-full cursor-pointer">
                   <div className="group relative bg-gray-800/40 backdrop-blur-sm rounded-xl p-3 h-full flex flex-col hover:bg-gray-700/40 transition-all duration-300 border border-gray-700/50 hover:border-blue-500/50 hover:transform hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/20">
                     <div className="mb-2">
-                      <div className="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center mb-2 group-hover:bg-blue-500/30 transition-all duration-300 group-hover:scale-110">
+                      <div className="w-10 h-10 short:w-8 short:h-8 bg-blue-500/20 rounded-xl flex items-center justify-center mb-2 short:mb-1 group-hover:bg-blue-500/30 transition-all duration-300 group-hover:scale-110">
                         <svg
                           className="w-5 h-5 text-blue-400"
                           fill="none"
@@ -312,7 +246,7 @@ export default function Services() {
                 <div className="block h-full cursor-pointer">
                   <div className="group relative bg-gray-800/40 backdrop-blur-sm rounded-xl p-3 h-full flex flex-col hover:bg-gray-700/40 transition-all duration-300 border border-gray-700/50 hover:border-blue-500/50 hover:transform hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/20">
                     <div className="mb-2">
-                      <div className="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center mb-2 group-hover:bg-blue-500/30 transition-all duration-300 group-hover:scale-110">
+                      <div className="w-10 h-10 short:w-8 short:h-8 bg-blue-500/20 rounded-xl flex items-center justify-center mb-2 short:mb-1 group-hover:bg-blue-500/30 transition-all duration-300 group-hover:scale-110">
                         <svg
                           className="w-5 h-5 text-blue-400"
                           fill="none"
@@ -374,7 +308,7 @@ export default function Services() {
                 <div className="block h-full cursor-pointer">
                   <div className="group relative bg-gray-800/40 backdrop-blur-sm rounded-xl p-3 h-full flex flex-col hover:bg-gray-700/40 transition-all duration-300 border border-gray-700/50 hover:border-blue-500/50 hover:transform hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/20">
                     <div className="mb-2">
-                      <div className="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center mb-2 group-hover:bg-blue-500/30 transition-all duration-300 group-hover:scale-110">
+                      <div className="w-10 h-10 short:w-8 short:h-8 bg-blue-500/20 rounded-xl flex items-center justify-center mb-2 short:mb-1 group-hover:bg-blue-500/30 transition-all duration-300 group-hover:scale-110">
                         <svg
                           className="w-5 h-5 text-blue-400"
                           fill="none"
@@ -436,7 +370,7 @@ export default function Services() {
                 <div className="block h-full cursor-pointer">
                   <div className="group relative bg-gray-800/40 backdrop-blur-sm rounded-xl p-3 h-full flex flex-col hover:bg-gray-700/40 transition-all duration-300 border border-gray-700/50 hover:border-blue-500/50 hover:transform hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/20">
                     <div className="mb-2">
-                      <div className="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center mb-2 group-hover:bg-blue-500/30 transition-all duration-300 group-hover:scale-110">
+                      <div className="w-10 h-10 short:w-8 short:h-8 bg-blue-500/20 rounded-xl flex items-center justify-center mb-2 short:mb-1 group-hover:bg-blue-500/30 transition-all duration-300 group-hover:scale-110">
                         <svg
                           className="w-5 h-5 text-blue-400"
                           fill="none"
@@ -482,25 +416,6 @@ export default function Services() {
           </div>
         </div>
       </main>
-
-      {/* Animations */}
-      <style jsx global>{`
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0) translateX(0);
-          }
-          25% {
-            transform: translateY(-15px) translateX(10px);
-          }
-          50% {
-            transform: translateY(10px) translateX(-10px);
-          }
-          75% {
-            transform: translateY(-5px) translateX(15px);
-          }
-        }
-      `}</style>
     </div>
   );
 }

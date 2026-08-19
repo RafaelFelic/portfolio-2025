@@ -32,44 +32,12 @@ import {
 } from "react-icons/fa";
 import Image from "next/image";
 
-function useMousePosition() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    // Check if device is mobile
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768 || "ontouchstart" in window);
-    };
-
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-
-    const setFromEvent = (e) => setPosition({ x: e.clientX, y: e.clientY });
-    window.addEventListener("mousemove", setFromEvent);
-
-    return () => {
-      window.removeEventListener("mousemove", setFromEvent);
-      window.removeEventListener("resize", checkMobile);
-    };
-  }, []);
-
-  return { position, isMobile };
-}
-
 export default function TechStack() {
   const [isVisible, setIsVisible] = useState(false);
-  const [loaded, setLoaded] = useState(false);
   const [activeCategory, setActiveCategory] = useState("all");
-  const { position: mousePosition, isMobile } = useMousePosition();
 
   useEffect(() => {
     setIsVisible(true);
-    const timer = setTimeout(() => {
-      setLoaded(true);
-    }, 300);
-
-    return () => clearTimeout(timer);
   }, []);
 
   const categories = [
@@ -313,38 +281,7 @@ export default function TechStack() {
       : techItems.filter((item) => item.categories.includes(activeCategory));
 
   return (
-    <div className="h-screen overflow-hidden bg-gradient-to-b from-black via-gray-900 to-blue-900/30 flex flex-col text-gray-300">
-      {/* Custom cursor follower - hidden on mobile */}
-      {!isMobile && (
-        <div
-          className="fixed w-8 h-8 rounded-full bg-blue-400 bg-opacity-20 pointer-events-none z-50 mix-blend-difference transition-transform duration-100 ease-out"
-          style={{
-            transform: `translate(${mousePosition.x - 16}px, ${
-              mousePosition.y - 16
-            }px)`,
-            display: loaded ? "block" : "none",
-          }}
-        />
-      )}
-
-      {/* Background particles for visual interest */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full bg-blue-400/10"
-            style={{
-              width: `${Math.random() * 10 + 4}px`,
-              height: `${Math.random() * 10 + 4}px`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animation: `float ${
-                Math.random() * 10 + 15
-              }s infinite ease-in-out`,
-            }}
-          />
-        ))}
-      </div>
+    <div className="overflow-hidden flex flex-1 flex-col text-gray-300">
 
       <main className="flex-1 max-w-6xl mx-auto px-4 pt-12 w-full flex items-center justify-center overflow-hidden">
         <div className="w-full flex flex-col items-center">
@@ -354,17 +291,17 @@ export default function TechStack() {
               isVisible ? "opacity-100" : "opacity-0 translate-y-10"
             }`}
           >
-            <h1 className="text-2xl sm:text-5xl font-bold mb-2 py-3 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 bg-clip-text text-transparent">
+            <h1 className="text-2xl sm:text-5xl short:sm:text-4xl shorter:sm:text-3xl font-bold mb-2 py-3 short:py-1 shorter:py-0 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 bg-clip-text text-transparent">
               Technology Stack
             </h1>
-            <div className="w-16 h-1 bg-blue-500 mb-12"></div>
-            <p className="text-gray-300 max-w-2xl mx-auto mb-4 text-sm">
+            <div className="w-16 h-1 bg-blue-500 mb-12 short:mb-3 shorter:mb-2 short:mt-2"></div>
+            <p className="text-gray-300 max-w-2xl mx-auto mb-4 short:mb-2 text-sm shorter:hidden">
               Technologies I've mastered to create responsive, innovative
               experiences.
             </p>
 
             {/* Category filter tabs - more compact */}
-            <div className="flex flex-wrap justify-center gap-1 mb-4">
+            <div className="flex flex-wrap justify-center gap-1 mb-4 short:mb-2">
               {categories.map((category) => (
                 <button
                   key={category.id}
@@ -386,11 +323,11 @@ export default function TechStack() {
             className="h-[55vh] overflow-y-auto w-full mx-auto"
             style={{ scrollbarWidth: "none" }}
           >
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 shorter:gap-1">
               {filteredItems.map((item, index) => (
                 <div
                   key={item.title}
-                  className={`bg-gradient-to-br from-gray-800/60 to-gray-900/60 backdrop-blur-sm border border-gray-700/30 rounded-lg p-3 
+                  className={`bg-gradient-to-br from-gray-800/60 to-gray-900/60 backdrop-blur-sm border border-gray-700/30 rounded-lg p-3 short:p-2 shorter:p-1.5 
                     hover:from-gray-800/80 hover:to-gray-800/60 hover:border-blue-700/50 transition-all duration-300 transform hover:-translate-y-1
                     transition-all duration-1000 ${
                       isVisible ? "opacity-100" : "opacity-0 translate-y-10"
@@ -399,7 +336,7 @@ export default function TechStack() {
                 >
                   <div className="flex items-center">
                     {item.isImage ? (
-                      <div className="w-8 h-8 rounded-lg bg-gray-700/50 flex items-center justify-center mr-2 backdrop-blur-sm">
+                      <div className="w-8 h-8 short:w-7 short:h-7 rounded-lg bg-gray-700/50 flex items-center justify-center mr-2 backdrop-blur-sm">
                         <Image
                           src={item.Icon}
                           alt={item.title}
@@ -432,21 +369,6 @@ export default function TechStack() {
 
       {/* Animations */}
       <style jsx global>{`
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0) translateX(0);
-          }
-          25% {
-            transform: translateY(-15px) translateX(10px);
-          }
-          50% {
-            transform: translateY(10px) translateX(-10px);
-          }
-          75% {
-            transform: translateY(-5px) translateX(15px);
-          }
-        }
         /* Hide scrollbar for Chrome, Safari and Opera */
         .overflow-y-auto::-webkit-scrollbar {
           display: none;

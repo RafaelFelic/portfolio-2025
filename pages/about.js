@@ -2,22 +2,8 @@ import Head from "next/head";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 
-function useMousePosition() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const setFromEvent = (e) => setPosition({ x: e.clientX, y: e.clientY });
-    window.addEventListener("mousemove", setFromEvent);
-    return () => window.removeEventListener("mousemove", setFromEvent);
-  }, []);
-
-  return position;
-}
-
 export default function About() {
   const [isVisible, setIsVisible] = useState(false);
-  const [loaded, setLoaded] = useState(false);
-  const mousePosition = useMousePosition();
   const [typingText, setTypingText] = useState("");
   const codeLines = [
     "<div>",
@@ -29,11 +15,6 @@ export default function About() {
 
   useEffect(() => {
     setIsVisible(true);
-
-    // Set loaded after a brief delay
-    const timer = setTimeout(() => {
-      setLoaded(true);
-    }, 300);
 
     // Typing animation
     let currentLine = 0;
@@ -71,13 +52,12 @@ export default function About() {
     type();
 
     return () => {
-      clearTimeout(timer);
       clearTimeout(typingTimer);
     };
   }, []);
 
   return (
-    <div className="text-gray-300 min-h-screen bg-gradient-to-b from-black via-gray-900 to-blue-900/30 flex flex-col">
+    <div className="text-gray-300 flex flex-1 flex-col">
       <Head>
         <title>About Me - Rafael | Web Developer</title>
         <meta
@@ -86,19 +66,7 @@ export default function About() {
         />
       </Head>
 
-      {/* Custom cursor follower - hidden on mobile */}
-      <div
-        className={`fixed w-8 h-8 rounded-full bg-blue-400 bg-opacity-20 pointer-events-none z-50 mix-blend-difference transition-transform duration-100 ease-out hidden md:${
-          loaded ? "block" : "hidden"
-        }`}
-        style={{
-          transform: `translate(${mousePosition.x - 16}px, ${
-            mousePosition.y - 16
-          }px)`,
-        }}
-      />
-
-      <main className="flex-1 max-w-6xl mx-auto px-4 py-12 pb-20 md:py-0 flex items-center justify-center">
+      <main className="flex-1 max-w-6xl mx-auto px-4 py-8 short:py-4 shorter:py-1 md:py-0 flex items-center justify-center">
         <div className="w-full">
           {/* Animated section header */}
           <div
@@ -106,14 +74,14 @@ export default function About() {
               isVisible ? "opacity-100" : "opacity-0 translate-y-10"
             } pt-8 md:pt-0`}
           >
-            <h1 className="text-3xl sm:text-5xl font-bold mb-3 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 bg-clip-text text-transparent">
+            <h1 className="text-3xl sm:text-5xl short:sm:text-4xl font-bold mb-3 short:mb-2 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600 bg-clip-text text-transparent">
               About Me
             </h1>
-            <div className="w-16 h-1 bg-blue-500 mb-6"></div>
+            <div className="w-16 h-1 bg-blue-500 mb-6 short:mb-3 shorter:mb-1"></div>
           </div>
 
           {/* Main content grid layout with more compact spacing */}
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-6 short:gap-3 md:gap-8 short:md:gap-5 shorter:md:gap-3">
             {/* Left column: Simple laptop line animation */}
             <div className="col-span-2">
               <div
@@ -147,7 +115,7 @@ export default function About() {
             </div>
 
             {/* Right column: Introduction text - more compact */}
-            <div className="col-span-3 flex flex-col gap-4">
+            <div className="col-span-3 flex flex-col gap-4 short:gap-2 shorter:gap-1">
               <div
                 className={`transition-all duration-1000 delay-300 transform ${
                   isVisible ? "opacity-100" : "opacity-0 translate-y-10"
@@ -171,10 +139,10 @@ export default function About() {
                   isVisible ? "opacity-100" : "opacity-0 translate-y-10"
                 }`}
               >
-                <h3 className="text-lg font-semibold mb-2 text-blue-300">
+                <h3 className="text-lg font-semibold mb-2 shorter:mb-1 text-blue-300">
                   My Expertise
                 </h3>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 short:gap-2">
                   {[
                     "Front-end Development",
                     "UX/UI Design",
@@ -200,7 +168,7 @@ export default function About() {
           </div>
 
           {/* Additional details with staggered animation - more concise text */}
-          <div className="mt-6 space-y-4">
+          <div className="mt-6 short:mt-3 shorter:mt-1 space-y-4 short:space-y-2 shorter:space-y-1">
             {[
               "I bring hands‑on back‑end development experience to every project, ensuring a complete, integrated approach.",
               "Fueled by passion for technology and design, my career is a journey of learning and innovation. I've collaborated with diverse teams to push the boundaries of web development.",
@@ -225,7 +193,7 @@ export default function About() {
             >
               <Link
                 href="/contact"
-                className="inline-block mt-6 py-2 px-6 bg-gradient-to-r from-blue-600 to-blue-800 
+                className="inline-block mt-6 short:mt-3 py-2 px-6 bg-gradient-to-r from-blue-600 to-blue-800 
                           text-white rounded-full text-sm font-medium shadow-lg shadow-blue-900/30 hover:shadow-blue-700/40
                           transition-all duration-300 hover:translate-y-[-2px]"
               >
@@ -299,24 +267,6 @@ export default function About() {
         }
       `}</style>
 
-      {/* Background particles matching index page */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full bg-blue-400/10"
-            style={{
-              width: `${Math.random() * 10 + 4}px`,
-              height: `${Math.random() * 10 + 4}px`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animation: `float ${
-                Math.random() * 10 + 15
-              }s infinite ease-in-out`,
-            }}
-          />
-        ))}
-      </div>
     </div>
   );
 }
